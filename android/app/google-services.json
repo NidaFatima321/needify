@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "461607255122",
+    "project_id": "needify-dbda1",
+    "storage_bucket": "needify-dbda1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461607255122:android:70b5299717c3e056bdb38b",
+        "android_client_info": {
+          "package_name": "com.example.needify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461607255122-70abfkuaa1u8jukaf3j6o4j3vs7hkkuf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0djCUs_aILXsJQayf40EwXZ-PMEBDV80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461607255122-70abfkuaa1u8jukaf3j6o4j3vs7hkkuf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
