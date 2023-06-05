@@ -47,14 +47,6 @@ class _LaptopsState extends State<Notes> {
                           collectionReference:
                           documentSnapshot.reference.collection("Posts"),category: "Notes",
                         docsnap: snapshot.data.docs[index],
-                        //   purchase: () {
-                        //   for (int i = 0; i < snapshot.data.docs.length; i++) {
-                        //     if (snapshot.data.docs[i] == login) {
-                        //       snapshot.data.docs[i]["Purchased"]
-                        //           .add(collectionReference.id);
-                        //     }
-                        //   }
-                        // }
                         )
                       ])));
                 }
@@ -64,25 +56,6 @@ class _LaptopsState extends State<Notes> {
                   children: mywidgets,
                 ),
               );
-
-              // return Card(
-              //     child: Column(children: [
-              //       Text(snapshot.data.docs[index]["Name"]),
-              //       Text("${snapshot.data.docs[index]["Categories"].length}"),
-              //      Text("${categories}"),
-              //      // FutureBuilder(
-              //      //   future: collectionReference.get(),
-              //      //   builder: (context, dynamic snapshot) {
-              //      //
-              //      //       return Text(snapshot.data!.docs[0]["Category"]);
-              //      //
-              //      // },)
-              //
-              //      PostWidget(collectionReference: documentSnapshot
-              //           .reference.collection("Posts"))
-              // ])
-              //
-              // );
             },
           );
         },

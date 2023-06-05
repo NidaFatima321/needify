@@ -19,7 +19,6 @@ class PostWidget extends StatefulWidget {
 }
 
 class _PostWidgetState extends State<PostWidget> {
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Object?>>(
@@ -68,7 +67,9 @@ class _PostWidgetState extends State<PostWidget> {
                         Text("${snapshot.data!.docs[index]["Description"]}"),
                         ElevatedButton(
                             onPressed: () {
-                              // widget.collectionReference.doc(snapshot.data!.docs[index].id).update({"Status":"Sold"});
+                              widget.collectionReference
+                                  .doc(snapshot.data!.docs[index].id)
+                                  .update({"Status": "Sold"});
 
                               List<dynamic> news = [];
                               for (int i = 0;
@@ -82,8 +83,7 @@ class _PostWidgetState extends State<PostWidget> {
                               FirebaseFirestore.instance
                                   .collection("Users")
                                   .doc(login)
-                                  .update({"Purchased": news}
-                              );
+                                  .update({"Purchased": news});
                               print(maindata!.id);
                               String logid =
                                   widget.collectionReference.parent!.id;
@@ -94,9 +94,37 @@ class _PostWidgetState extends State<PostWidget> {
                                 soldItems.add(widget.docsnap["Sold"][i]);
                               }
                               soldItems.add(snapshot.data!.docs[index].id);
-                              FirebaseFirestore.instance.collection("Users").doc(logid).update({"Sold":soldItems});
+                              FirebaseFirestore.instance
+                                  .collection("Users")
+                                  .doc(logid)
+                                  .update({"Sold": soldItems});
                             },
                             child: Text("PURCHASE"))
+                      ],
+                    )
+                  ],
+                ));
+              }
+              else if(snapshot.data!.docs[index]["Category"] == widget.category &&
+                  snapshot.data!.docs[index]["Status"] == "Sold"){
+                mywidget.add(Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.network(
+                      snapshot.data!.docs[index]["Images"][0],
+                      width: 200,
+                      height: 140,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(snapshot.data!.docs[index]["Title"]),
+                        Text(snapshot.data!.docs[index]["Brand"]),
+                        Text(snapshot.data!.docs[index]["Condition"]),
+                        Text(snapshot.data!.docs[index]["Category"]),
+                        Text("${snapshot.data!.docs[index]["Price"]}"),
+                        Text("${snapshot.data!.docs[index]["Description"]}"),
+                        Text("Sold",style: TextStyle(color: Colors.red),)
                       ],
                     )
                   ],
