@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:needify/Views/category_widget.dart';
+import 'package:needify/Views/drawing_tools.dart';
 import 'package:needify/Views/laptops.dart';
 import 'package:needify/Views/notes.dart';
+import 'package:needify/Views/other_categories.dart';
 import 'package:needify/Views/sold_items.dart';
 import 'package:needify/main.dart';
 
@@ -42,8 +44,8 @@ class _DashboardState extends State<Dashboard> {
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CategoryWidget(categoryimage: "https://static.vecteezy.com/system/resources/previews/009/344/824/original/3d-illustration-engineering-helmet-and-tools-png.png",categoryname: "Drawing Tools",navigate: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Laptop(),));}),
-                    CategoryWidget(categoryimage: "https://static.vecteezy.com/system/resources/previews/008/475/692/original/modern-laptop-isolated-on-white-background-3d-illustration-free-png.png",categoryname: "Others",navigate: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Laptop(),));}),
+                    CategoryWidget(categoryimage: "https://static.vecteezy.com/system/resources/previews/009/344/824/original/3d-illustration-engineering-helmet-and-tools-png.png",categoryname: "Drawing Tools",navigate: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DrawingTools(),));}),
+                    CategoryWidget(categoryimage: "https://static.vecteezy.com/system/resources/previews/008/475/692/original/modern-laptop-isolated-on-white-background-3d-illustration-free-png.png",categoryname: "Others",navigate: (){Navigator.push(context, MaterialPageRoute(builder: (context) => OtherCategories(),));}),
                   ],
                 ),
               ElevatedButton(onPressed: (){

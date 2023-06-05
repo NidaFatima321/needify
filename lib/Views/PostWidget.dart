@@ -40,7 +40,7 @@ class _PostWidgetState extends State<PostWidget> {
             borderRadius: BorderRadius.circular(20),
           ),
           // color: Colors.teal,
-          height: 150,
+          height: 160,
           child: ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
@@ -56,6 +56,7 @@ class _PostWidgetState extends State<PostWidget> {
                       width: 200,
                       height: 140,
                     ),
+                    SizedBox(width: 5,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -64,7 +65,9 @@ class _PostWidgetState extends State<PostWidget> {
                         Text(snapshot.data!.docs[index]["Condition"]),
                         Text(snapshot.data!.docs[index]["Category"]),
                         Text("${snapshot.data!.docs[index]["Price"]}"),
-                        Text("${snapshot.data!.docs[index]["Description"]}"),
+                        SizedBox(
+                            width: 170,
+                            child: Text("${snapshot.data!.docs[index]["Description"]}")),
                         ElevatedButton(
                             onPressed: () {
                               widget.collectionReference
