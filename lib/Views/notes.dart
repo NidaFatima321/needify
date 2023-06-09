@@ -47,6 +47,7 @@ class _LaptopsState extends State<Notes> {
                           collectionReference:
                           documentSnapshot.reference.collection("Posts"),category: "Notes",
                         docsnap: snapshot.data.docs[index],
+                            posterData:snapshot.data.docs[index]
                         )
                       ])));
                 }

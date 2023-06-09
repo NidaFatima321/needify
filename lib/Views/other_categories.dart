@@ -51,7 +51,7 @@ class _OtherCategoriesState extends State<OtherCategories> {
                           documentSnapshot.reference.collection("Posts"),
                           category: "Others",
                           docsnap: snapshot.data.docs[index],
-
+                            posterData:snapshot.data.docs[index]
 
                         )
                       ])));

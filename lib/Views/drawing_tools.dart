@@ -23,7 +23,7 @@ class _DrawingToolsState extends State<DrawingTools> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
                 child:
-                CircularProgressIndicator()); //return means the bottom code wont run
+                    CircularProgressIndicator()); //return means the bottom code wont run
           }
           if (snapshot.data == null || snapshot.hasError) {
             return const Center(child: Text("DATA NOT AVAILABLE"));
@@ -34,24 +34,24 @@ class _DrawingToolsState extends State<DrawingTools> {
             itemBuilder: (context, index) {
               List<Widget> mywidgets = [];
               for (int i = 0;
-              i < snapshot.data.docs[index]["Categories"].length;
-              i++) {
-                if (snapshot.data.docs[index]["Categories"][i] == "Drawing Tools" &&snapshot.data.docs[index].id!=login ) {
+                  i < snapshot.data.docs[index]["Categories"].length;
+                  i++) {
+                if (snapshot.data.docs[index]["Categories"][i] ==
+                        "Drawing Tools" &&
+                    snapshot.data.docs[index].id != login) {
                   DocumentSnapshot documentSnapshot = snapshot.data.docs[index];
                   // CollectionReference collectionReference =
                   //     documentSnapshot.reference.collection("Posts");
                   mywidgets.add(Card(
                       child: Column(children: [
-                        // Text(snapshot.data.docs[index]["Name"]),
-                        PostWidget(
-                          collectionReference:
-                          documentSnapshot.reference.collection("Posts"),
-                          category: "Drawing Tools",
-                          docsnap: snapshot.data.docs[index],
-
-
-                        )
-                      ])));
+                    // Text(snapshot.data.docs[index]["Name"]),
+                    PostWidget(
+                        collectionReference:
+                            documentSnapshot.reference.collection("Posts"),
+                        category: "Drawing Tools",
+                        docsnap: snapshot.data.docs[index],
+                        posterData: snapshot.data.docs[index])
+                  ])));
                 }
               }
               return Container(
