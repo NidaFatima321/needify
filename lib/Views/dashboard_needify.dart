@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:needify/Views/category_widget.dart';
 import 'package:needify/Views/drawing_tools.dart';
 import 'package:needify/Views/laptops.dart';
+import 'package:needify/Views/my_purchases.dart';
 import 'package:needify/Views/notes.dart';
 import 'package:needify/Views/other_categories.dart';
 import 'package:needify/Views/sold_items.dart';
@@ -26,14 +27,9 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Icon(Icons.menu),
-            SizedBox(
-                width: 300,
-                child: Text("Faisal Apartments Johar Karachi"))
-          ],
-        ),
+        title: SizedBox(
+            width: 300,
+            child: Text("Faisal Apartments Johar Karachi")),
       ),
       drawer: Drawer(
         child: SingleChildScrollView(
@@ -117,7 +113,9 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ElevatedButton(onPressed: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => SoldItems(),));
-              }, child: Text("SOLD ITEMS")),
+              }, child: Text("SOLD ITEMS")),ElevatedButton(onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoadData(),));
+              }, child: Text("PURCHASED ITEMS")),
               Expanded(
                 child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                   stream: FirebaseFirestore.instance.collection("Users").snapshots(),
@@ -159,9 +157,9 @@ class _DashboardState extends State<Dashboard> {
         children: [
           menuItem(1, "Dashboard", Icons.dashboard_outlined,
               currentPage == DrawerSelections.Home? true : false),
-          menuItem(1, "My Purchases", Icons.shopping_bag_outlined,
+          menuItem(2, "My Purchases", Icons.shopping_bag_outlined,
               currentPage == DrawerSelections.my_purchases? true : false),
-          menuItem(1, "Sold Items", Icons.sell_outlined,
+          menuItem(3, "Sold Items", Icons.sell_outlined,
               currentPage == DrawerSelections.sold_items? true : false),
         ],
       ),

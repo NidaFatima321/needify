@@ -64,13 +64,7 @@ class _PostWidgetState extends State<PostWidget> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Text(snapshot.data!.docs[index]["Title"],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: "Pacifico"),),
-                            SizedBox(width: 20),
-                            Icon(Icons.supervised_user_circle,color: Colors.grey,)
-                          ],
-                        ),
+                        Text(snapshot.data!.docs[index]["Title"],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: "Pacifico"),),
                         Text(snapshot.data!.docs[index]["Brand"],style: TextStyle(fontSize: 18),),
                         Text(snapshot.data!.docs[index]["Condition"],style: TextStyle(fontSize: 18),),
                         Text(snapshot.data!.docs[index]["Category"],style: TextStyle(fontSize: 18),),
