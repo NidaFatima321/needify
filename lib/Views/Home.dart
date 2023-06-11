@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
         //backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
-          "Home",
+          "NEEDIFY",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context, index) {
                               var data = snapshot.data!.docs[index];
                               return Container(
-                                color: Colors.pinkAccent,
+                                color: Color(0xFF3375A9),
                                 width: double.infinity,
                                 height: 200,
                                 padding: EdgeInsets.only(top: 20,),
