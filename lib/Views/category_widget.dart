@@ -35,7 +35,6 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               Text(widget.categoryname,style: TextStyle(fontWeight:FontWeight.w500,fontSize: 20),),
               SizedBox(height: 10,),
               Image.network(widget.categoryimage,width: 150,height: 100,)
-
             ],
           ),
         ),

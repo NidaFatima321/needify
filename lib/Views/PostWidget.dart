@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:group_radio_button/group_radio_button.dart';
+import 'package:needify/Views/payment_screen.dart';
 import 'package:needify/main.dart';
 
 import 'dialogscreen.dart';
@@ -76,37 +78,79 @@ class _PostWidgetState extends State<PostWidget> {
                           children: [
                             ElevatedButton(
                                 onPressed: () {
-                                  widget.collectionReference
-                                      .doc(snapshot.data!.docs[index].id)
-                                      .update({"Status": "Sold"});
+                                  showModalBottomSheet<void>(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return SizedBox(
+                                        height: 260,
+                                        child: Center(
+                                          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Text("Payment Methods"),
+                                              ),
 
-                                  List<dynamic> news = [];
-                                  for (int i = 0;
-                                      i < maindata!["Purchased"].length;
-                                      i++) {
-                                    news.add(maindata!["Purchased"][i]);
-                                  }
-                                  print(maindata!["Name"]);
-                                  news.add(snapshot.data!.docs[index].id);
-                                  print(news);
-                                  FirebaseFirestore.instance
-                                      .collection("Users")
-                                      .doc(login)
-                                      .update({"Purchased": news});
-                                  print(maindata!.id);
-                                  String logid =
-                                      widget.collectionReference.parent!.id;
-                                  List<dynamic> soldItems = [];
-                                  for (int i = 0;
-                                      i < widget.docsnap["Sold"].length;
-                                      i++) {
-                                    soldItems.add(widget.docsnap["Sold"][i]);
-                                  }
-                                  soldItems.add(snapshot.data!.docs[index].id);
-                                  FirebaseFirestore.instance
-                                      .collection("Users")
-                                      .doc(logid)
-                                      .update({"Sold": soldItems});
+                                              Card(
+                                                child: ListTile(
+                                                  leading: Image.asset('assets/images/jazz.png',width: 50,),
+                                                  title: Text("JazzCash"),
+                                                  trailing: GestureDetector(
+                                                      onTap: (){
+                                                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentDecision(),));
+                                                      },
+                                                      child: Icon(Icons.arrow_forward)),
+                                                ),
+                                              ),
+                                              Card(
+                                                child: ListTile(
+                                                  leading: Icon(Icons.delivery_dining,color: Colors.indigo,size: 30,),
+                                                  title: Text("Cash On Delivery"),
+                                                  trailing: GestureDetector(
+                                                      onTap: (){
+                                                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentDecision(),));
+                                                      },
+                                                      child: Icon(Icons.arrow_forward)),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                  // widget.collectionReference
+                                  //     .doc(snapshot.data!.docs[index].id)
+                                  //     .update({"Status": "Sold"});
+                                  //
+                                  // List<dynamic> news = [];
+                                  // for (int i = 0;
+                                  //     i < maindata!["Purchased"].length;
+                                  //     i++) {
+                                  //   news.add(maindata!["Purchased"][i]);
+                                  // }
+                                  // print(maindata!["Name"]);
+                                  // news.add(snapshot.data!.docs[index].id);
+                                  // print(news);
+                                  // FirebaseFirestore.instance
+                                  //     .collection("Users")
+                                  //     .doc(login)
+                                  //     .update({"Purchased": news});
+                                  // print(maindata!.id);
+                                  // String logid =
+                                  //     widget.collectionReference.parent!.id;
+                                  // List<dynamic> soldItems = [];
+                                  // for (int i = 0;
+                                  //     i < widget.docsnap["Sold"].length;
+                                  //     i++) {
+                                  //   soldItems.add(widget.docsnap["Sold"][i]);
+                                  // }
+                                  // soldItems.add(snapshot.data!.docs[index].id);
+                                  // FirebaseFirestore.instance
+                                  //     .collection("Users")
+                                  //     .doc(logid)
+                                  //     .update({"Sold": soldItems});
                                 },
                                 child: Text("PURCHASE")),
                             SizedBox(width: 30,),
