@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:needify/Views/add_post.dart';
 import 'package:needify/Views/category_widget.dart';
 import 'package:needify/Views/drawing_tools.dart';
 import 'package:needify/Views/laptops.dart';
@@ -9,6 +10,7 @@ import 'package:needify/Views/notes.dart';
 import 'package:needify/Views/other_categories.dart';
 import 'package:needify/Views/sold_items.dart';
 import 'package:needify/main.dart';
+
 
 import '../reusable_widgets/round_image.dart';
 
@@ -92,60 +94,74 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-            children: [
+      body: Container(
+        color:  Color(0xFF252530),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+
+              children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CategoryWidget(categoryimage: "https://www.pngmart.com/files/1/Laptop-PNG-Picture-420x267.png",categoryname: "Laptop",navigate: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Laptop(),));},),
+                      CategoryWidget(categoryimage: "https://png.pngtree.com/png-clipart/20221229/original/pngtree-cream-sticky-notes-paper-illustration-with-clip-white-transparent-background-png-image_8822924.png",categoryname: "Notes",navigate: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Notes(),));},),
+                    ],
+                  ),
+                SizedBox(height: 20,),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CategoryWidget(categoryimage: "https://www.pngmart.com/files/1/Laptop-PNG-Picture-420x267.png",categoryname: "Laptop",navigate: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Laptop(),));},),
-                    CategoryWidget(categoryimage: "https://png.pngtree.com/png-clipart/20221229/original/pngtree-cream-sticky-notes-paper-illustration-with-clip-white-transparent-background-png-image_8822924.png",categoryname: "Notes",navigate: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Notes(),));},),
-                  ],
-                ),
-              SizedBox(height: 20,),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CategoryWidget(categoryimage: "https://static.vecteezy.com/system/resources/previews/009/344/824/original/3d-illustration-engineering-helmet-and-tools-png.png",categoryname: "Drawing Tools",navigate: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DrawingTools(),));}),
-                    CategoryWidget(categoryimage: "https://static.vecteezy.com/system/resources/previews/008/475/692/original/modern-laptop-isolated-on-white-background-3d-illustration-free-png.png",categoryname: "Others",navigate: (){Navigator.push(context, MaterialPageRoute(builder: (context) => OtherCategories(),));}),
-                  ],
-                ),
-              ElevatedButton(onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SoldItems(),));
-              }, child: Text("SOLD ITEMS")),ElevatedButton(onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoadData(),));
-              }, child: Text("PURCHASED ITEMS")),
-              Expanded(
-                child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                  stream: FirebaseFirestore.instance.collection("Users").snapshots(),
-                  builder: (context, dynamic snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                          child:
-                          CircularProgressIndicator()); //return means the bottom code wont run
-                    }
-                    if (snapshot.data == null || snapshot.hasError) {
-                      return const Center(child: Text("DATA NOT AVAILABLE"));
-                    }
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CategoryWidget(categoryimage: "https://static.vecteezy.com/system/resources/previews/009/344/824/original/3d-illustration-engineering-helmet-and-tools-png.png",categoryname: "Drawing Tools",navigate: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DrawingTools(),));}),
+                      CategoryWidget(categoryimage: "https://static.vecteezy.com/system/resources/previews/008/475/692/original/modern-laptop-isolated-on-white-background-3d-illustration-free-png.png",categoryname: "Others",navigate: (){Navigator.push(context, MaterialPageRoute(builder: (context) => OtherCategories(),));}),
+                    ],
+                  ),
+                ElevatedButton(onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SoldItems(),));
+                }, child: Text("SOLD ITEMS")),ElevatedButton(onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoadData(),));
+                }, child: Text("PURCHASED ITEMS")),
+                Expanded(
+                  child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                    stream: FirebaseFirestore.instance.collection("Users").snapshots(),
+                    builder: (context, dynamic snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                            child:
+                            CircularProgressIndicator()); //return means the bottom code wont run
+                      }
+                      if (snapshot.data == null || snapshot.hasError) {
+                        return const Center(child: Text("DATA NOT AVAILABLE"));
+                      }
 
-                    return ListView.builder(
-                      itemCount: snapshot.data.docs.length,
-                      itemBuilder: (context, index) {
-                        if(snapshot.data.docs[index].id==login){
-                          maindata=snapshot.data.docs[index];
-                        }
-                        return Container(
-                          child: Text("Items Found",style: TextStyle(color: Colors.white),),
-                        );
+                      return ListView.builder(
+                        itemCount: snapshot.data.docs.length,
+                        itemBuilder: (context, index) {
+                          if(snapshot.data.docs[index].id==login){
+                            maindata=snapshot.data.docs[index];
+                          }
+                          return Container(
+                            child: Text("Items Found",style: TextStyle(color: Colors.white),),
+                          );
 
-                    },);
+                      },);
 
-                },),
-              )
-            ],
-          ),
+                  },),
+                )
+              ],
+            ),
 
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+       // height: 70.0,
+       color: Color(0xFF252530),
+        child: InkWell(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AddPost()));
+          },
+            child: Image.asset("assets/images/PlusButton.png",width: 100,height: 100,)
+        ),
       ),
 
     );
@@ -158,7 +174,7 @@ class _DashboardState extends State<Dashboard> {
           menuItem(1, "Dashboard", Icons.dashboard_outlined,
               currentPage == DrawerSelections.Home? true : false),
           menuItem(2, "My Purchases", Icons.shopping_bag_outlined,
-              currentPage == DrawerSelections.my_purchases? true : false),
+              currentPage == DrawerSelections.LoadData? true : false),
           menuItem(3, "Sold Items", Icons.sell_outlined,
               currentPage == DrawerSelections.sold_items? true : false),
         ],
@@ -176,7 +192,7 @@ class _DashboardState extends State<Dashboard> {
             if (id == 1) {
               currentPage == DrawerSelections.Home;
             } else if (id == 2) {
-              currentPage == DrawerSelections.my_purchases;
+              currentPage == DrawerSelections.LoadData;
             } else if (id == 3) {
               currentPage == DrawerSelections.sold_items;
             }
@@ -213,6 +229,6 @@ class _DashboardState extends State<Dashboard> {
 
 enum DrawerSelections {
   Home,
-  my_purchases,
+  LoadData(),
   sold_items
 }
