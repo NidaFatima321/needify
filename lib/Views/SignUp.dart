@@ -14,7 +14,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  TextEditingController _userNameTextController = TextEditingController();
+  TextEditingController _nameTextController = TextEditingController();
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _phnoTextController = TextEditingController();
@@ -42,90 +42,171 @@ class _SignUpScreenState extends State<SignUpScreen> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              hexStringToColors("CB2B93"),
-              hexStringToColors("9546C4"),
-              hexStringToColors("5E61F4")
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+          color: Color(0xFF25253D),
         ),
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.fromLTRB(20, 120, 20, 0),
+            padding: EdgeInsets.all(20),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const SizedBox(
-                  height: 20,
+                  height: 80,
                 ),
-                textField("Enter Username", Icons.person_outline, false,
-                    _userNameTextController),
+                Text(
+                  'Create Account',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                SizedBox(height: 10),
+                Text(
+                  'User please fill the input below',
+                  style: TextStyle(
+                    color: Color(0xFF9696C0),
+                    fontSize: 18,
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  'Enter Your Full Name',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
-                textField("Enter Email Id", Icons.email_outlined, false,
+                textField("", Icons.person_outline, false,
+                    _nameTextController),
+                const SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  'Enter Email ID',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                textField("", Icons.email_outlined, false,
                     _emailTextController),
                 const SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
-                textField("Enter Password", Icons.lock_outline, true,
+                Text(
+                  'Enter Pasword',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                textField("", Icons.lock_outline, true,
                     _passwordTextController),
                 const SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
-                textField("Enter Phone no.", Icons.phone_android_outlined, false,
+                Text(
+                  'Enter Phone no.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                textField("", Icons.phone_android_outlined, false,
                     _phnoTextController),
                 const SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
-                textField("Enter Department", Icons.house_siding_outlined, false,
+                Text(
+                  'Enter Department',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                textField("", Icons.house_siding_outlined, false,
                     _deptTextController),
                 const SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
-                textField("Enter Year", Icons.book_outlined, false,
+                Text(
+                  'Enter Year',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                textField("", Icons.book_outlined, false,
                     _yearTextController),
                 const SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
-                UserImage(
-                    onFileChanged: (imageUrl) {
-                      setState(() {
-                        this.imageUrl = imageUrl;
-                      });
-                    }
+                Center(
+                  child: UserImage(
+                      onFileChanged: (imageUrl) {
+                        setState(() {
+                          this.imageUrl = imageUrl;
+                        });
+                      }
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                signinSignupButton(context, false, () async {
-                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: _emailTextController.text,
-                      password: _passwordTextController.text).then((value) {
-                    print("New Account Created!");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
-                  }).onError((error, stackTrace){
-                    print("Error ${error.toString()}");
-                  });
+                Center(
+                  child: signinSignupButton(context, false, () async {
+                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        email: _emailTextController.text,
+                        password: _passwordTextController.text).then((value) {
+                      print("New Account Created!");
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()));
+                    }).onError((error, stackTrace){
+                      print("Error ${error.toString()}");
+                    });
 
-                  await users.doc(_emailTextController.text).set({
-                    "Email":_emailTextController.text,
-                    "Name":_userNameTextController.text,
-                    "Password":_passwordTextController.text,
-                    "Phone no":_phnoTextController.text,
-                    "Department":_deptTextController.text,
-                    "Year":_yearTextController.text,
-                    "User image": imageUrl,
-                    "Sold":[],
-                    "Categories":[],
-                    "Purchased":[]
-                  }).then((value) {
-                    print("Added user!");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
-                  }).onError((error, stackTrace){
-                    print("Error ${error.toString()}");
-                  });
-                })
+                    await users.doc(_emailTextController.text).set({
+                      "Email":_emailTextController.text,
+                      "Name":_nameTextController.text,
+                      "Password":_passwordTextController.text,
+                      "Phone no":_phnoTextController.text,
+                      "Department":_deptTextController.text,
+                      "Year":_yearTextController.text,
+                      "User image": imageUrl,
+                      "Sold":[],
+                      "Categories":[],
+                      "Purchased":[]
+                    }).then((value) {
+                      print("Added user!");
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()));
+                    }).onError((error, stackTrace){
+                      print("Error ${error.toString()}");
+                    });
+                  }),
+                )
               ],
             ),
           ),
