@@ -37,7 +37,7 @@ class _PostWidgetState extends State<PostWidget> {
         }
 
         return Container(
-          margin: EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
             borderRadius: BorderRadius.circular(20),
@@ -60,15 +60,15 @@ class _PostWidgetState extends State<PostWidget> {
                       width: 200,
                       height: 140,
                     ),
-                    SizedBox(width: 5,),
+                    const SizedBox(width: 5,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(snapshot.data!.docs[index]["Title"],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: "Pacifico"),),
-                        Text(snapshot.data!.docs[index]["Brand"],style: TextStyle(fontSize: 18),),
-                        Text(snapshot.data!.docs[index]["Condition"],style: TextStyle(fontSize: 18),),
-                        Text(snapshot.data!.docs[index]["Category"],style: TextStyle(fontSize: 18),),
-                        Text("${snapshot.data!.docs[index]["Price"]}",style: TextStyle(fontSize: 18,color: Colors.red),),
+                        Text(snapshot.data!.docs[index]["Title"],style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: "Pacifico"),),
+                        Text('(${snapshot.data!.docs[index]["Condition"]})',style: const TextStyle(fontSize: 18,color: Colors.lightBlue),),
+                        Text(snapshot.data!.docs[index]["Brand"],style: const TextStyle(fontSize: 18,fontFamily: 'Times New Roman'),),
+                        Text(snapshot.data!.docs[index]["Category"],style: const TextStyle(fontSize: 18),),
+                        Text("${snapshot.data!.docs[index]["Price"]}",style: const TextStyle(fontSize: 18,color: Colors.red),),
                         SizedBox(
                             width: 170,
                             child: Text("${snapshot.data!.docs[index]["Description"]}",style: TextStyle(color: Colors.grey,fontSize: 18),),),

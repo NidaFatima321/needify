@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:needify/Views/dashboard_needify.dart';
 import 'dart:core';
 
 import 'package:needify/Views/my_purchases.dart';
@@ -145,171 +146,178 @@ class _AddPostState extends State<AddPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.cyan,
         title: Text("Create a Post"),
-        leading: Icon(Icons.close),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Container(
-          child: ListView(
-              children: [
-                TextFormField(
-                  controller: _titleController,
-                  decoration: InputDecoration(
-                    hintText: "Add Title",
-                  ),
-                ),
-                SizedBox(height: 20),
-                TextField(
-                  controller: _descController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Add Description',
-
-                    // contentPadding: EdgeInsets.only(left:8.0,bottom:32.0,top:32.0),
-                  ),
-                  maxLength: 50,
-
-                ),
-                SizedBox(height: 20),
-                Text("Category"),
-                DropdownButton<String>(
-                  value: valueChoose,
-                  onChanged: (String? newValue){
-                    setState(() {
-                      valueChoose = newValue!;
-                    });
-                  },
-                  items: listItem.map<DropdownMenuItem<String>>(
-                          (String value) {
-                        return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value)
-                        );
-                      }
-
-                  ).toList(),
-
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _condController,
-                  decoration: InputDecoration(
-                    hintText: " Condition",
-
-                  ),
-
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _brandController,
-                  decoration: InputDecoration(
-                    hintText: " Brand",
-
-                  ),
-
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _priceController,
-                  decoration: InputDecoration(
-                    hintText: " Price",
-
-                  ),
-
-                ),
-
-                SizedBox(height: 20),
-                InkWell(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 200,
-                      color: Colors.teal,
-                      child: Stack(
-                        children: [
-                          pickedImage != null ?
-                          Image.file(pickedImage!,width:MediaQuery.of(context).size.width,fit: BoxFit.cover,):
-                          Image.asset("assets/images/upload.jpg",
-                            fit: BoxFit.cover,
-                            width: MediaQuery.of(context).size.width,
-                            height: 200,
-                            color: Colors.black.withOpacity(0.5),
-                            colorBlendMode: BlendMode.darken,),
-                          Center(
-                              child: Text("Upload Image", style: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.bold))
-                          ),
-                        ],
-                      ),
-                    ),
-                    onTap:
-                    imagePickerOption
-                  //   ImagePicker imagePicker = ImagePicker();
-                  //   XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
-                  //   //imagePicker.pickImage(source: ImageSource.gallery);
-                  //   //print('${file?.path}');
-                  //   String uniqueImgFileName = DateTime.now().millisecondsSinceEpoch.toString();
-                  //
-                  //   //Get a reference to firebase storage root
-                  //   Reference referenceRoot = FirebaseStorage.instance.ref();
-                  //   Reference referenceDirImages = referenceRoot.child('images');
-                  //
-                  //   //Create a reference for the image to be stored
-                  //   Reference referenceImageToUpload = referenceDirImages.child(uniqueImgFileName);
-                  //
-                  //
-                  //
-                  //     //Store the Image in Firebase Storage
-                  //    await  referenceImageToUpload.putFile(File(file!.path));
-                  //    //Get the download url
-                  //    imageUrl = await referenceImageToUpload.getDownloadURL();
-                  //
-                  //
-                  //
-                  //
-
-
-                ),
-
-                SizedBox(height: 20),
-
-                ElevatedButton(
-                  onPressed: () async {
-                    String title = _titleController.text;
-                    String desc = _descController.text;
-                    String cond = _condController.text;
-                    String brand = _brandController.text;
-                    String price = _priceController.text;
-                    String category = valueChoose;
-
-                    Map<String,String> dataToSend = {
-                      'Title'  : title,
-                      'Description' : desc,
-                      'Condition' : cond,
-                      'Brand' : brand,
-                      'Price' : price,
-                      'Image' : imageUrl,
-                      'Category' : category,
-                    };
-                    //  Stream<QuerySnapshot<Object?>> stream = widget._referencePostsReference.snapshots();
-                    //  Future<int> length = stream.length;
-                    //  print(length);
-                    //
-                    // final int postLength = await widget._referencePostsReference.snapshots().length;
-                    // print(postLength);
-
-                    QuerySnapshot posts = await widget._referencePostsReference.get();
-                    int postLength = posts.docs.length;
-                    widget._referencePostsReference.doc('zoyakashif23@gmail.com_${postLength +1 }').set(dataToSend);
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => LoadData()));
-                  },
-                  child: Text("Post"),
-                )
-              ]
-
-          ),
+        leading: InkWell(
+          onTap: (){
+            Navigator.pop(context);
+          },
+            child: Icon(Icons.close)
         ),
       ),
-    );
+      body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
+            child: ListView(
+                children: [
+                  TextFormField(
+                    controller: _titleController,
+                    decoration: InputDecoration(
+                      hintText: "Add Title",
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextField(
+                    controller: _descController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Add Description',
+
+                      // contentPadding: EdgeInsets.only(left:8.0,bottom:32.0,top:32.0),
+                    ),
+                    maxLength: 50,
+
+                  ),
+                  SizedBox(height: 20),
+                  Text("Category"),
+                  DropdownButton<String>(
+                    value: valueChoose,
+                    onChanged: (String? newValue){
+                      setState(() {
+                        valueChoose = newValue!;
+                      });
+                    },
+                    items: listItem.map<DropdownMenuItem<String>>(
+                            (String value) {
+                          return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value)
+                          );
+                        }
+
+                    ).toList(),
+
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _condController,
+                    decoration: InputDecoration(
+                      hintText: " Condition",
+
+                    ),
+
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _brandController,
+                    decoration: InputDecoration(
+                      hintText: " Brand",
+
+                    ),
+
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _priceController,
+                    decoration: InputDecoration(
+                      hintText: " Price",
+
+                    ),
+
+                  ),
+
+                  SizedBox(height: 20),
+                  InkWell(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 200,
+                        color: Colors.teal,
+                        child: Stack(
+                          children: [
+                            pickedImage != null ?
+                            Image.file(pickedImage!,width:MediaQuery.of(context).size.width,fit: BoxFit.cover,):
+                            Image.asset("assets/images/upload.jpg",
+                              fit: BoxFit.cover,
+                              width: MediaQuery.of(context).size.width,
+                              height: 200,
+                              color: Colors.black.withOpacity(0.5),
+                              colorBlendMode: BlendMode.darken,),
+                            Center(
+                                child: Text("Upload Image", style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold))
+                            ),
+                          ],
+                        ),
+                      ),
+                      onTap:
+                      imagePickerOption
+                    //   ImagePicker imagePicker = ImagePicker();
+                    //   XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
+                    //   //imagePicker.pickImage(source: ImageSource.gallery);
+                    //   //print('${file?.path}');
+                    //   String uniqueImgFileName = DateTime.now().millisecondsSinceEpoch.toString();
+                    //
+                    //   //Get a reference to firebase storage root
+                    //   Reference referenceRoot = FirebaseStorage.instance.ref();
+                    //   Reference referenceDirImages = referenceRoot.child('images');
+                    //
+                    //   //Create a reference for the image to be stored
+                    //   Reference referenceImageToUpload = referenceDirImages.child(uniqueImgFileName);
+                    //
+                    //
+                    //
+                    //     //Store the Image in Firebase Storage
+                    //    await  referenceImageToUpload.putFile(File(file!.path));
+                    //    //Get the download url
+                    //    imageUrl = await referenceImageToUpload.getDownloadURL();
+                    //
+                    //
+                    //
+                    //
+
+
+                  ),
+
+                  SizedBox(height: 20),
+
+                  ElevatedButton(
+                    onPressed: () async {
+                      String title = _titleController.text;
+                      String desc = _descController.text;
+                      String cond = _condController.text;
+                      String brand = _brandController.text;
+                      String price = _priceController.text;
+                      String category = valueChoose;
+
+                      Map<String,String> dataToSend = {
+                        'Title'  : title,
+                        'Description' : desc,
+                        'Condition' : cond,
+                        'Brand' : brand,
+                        'Price' : price,
+                        'Image' : imageUrl,
+                        'Category' : category,
+                      };
+                      //  Stream<QuerySnapshot<Object?>> stream = widget._referencePostsReference.snapshots();
+                      //  Future<int> length = stream.length;
+                      //  print(length);
+                      //
+                      // final int postLength = await widget._referencePostsReference.snapshots().length;
+                      // print(postLength);
+
+                      QuerySnapshot posts = await widget._referencePostsReference.get();
+                      int postLength = posts.docs.length;
+                      widget._referencePostsReference.doc('zoyakashif23@gmail.com_${postLength +1 }').set(dataToSend);
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dashboard()));
+                    },
+                    child: Text("Post"),
+                  )
+                ]
+
+            ),
+          ),
+        ),
+      );
+
   }
 }

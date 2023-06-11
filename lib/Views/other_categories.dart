@@ -14,16 +14,16 @@ class _OtherCategoriesState extends State<OtherCategories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("OTHER CATEGORIES"),
-      ),
+      // appBar: AppBar(
+      //   title: Text("OTHER CATEGORIES"),
+      // ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance.collection("Users").snapshots(),
         builder: (context, dynamic snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
                 child:
-                CircularProgressIndicator()); //return means the bottom code wont run
+                    CircularProgressIndicator()); //return means the bottom code wont run
           }
           if (snapshot.data == null || snapshot.hasError) {
             return const Center(child: Text("DATA NOT AVAILABLE"));
@@ -37,24 +37,27 @@ class _OtherCategoriesState extends State<OtherCategories> {
               //   maindata=snapshot.data.docs[index];
               // };
               for (int i = 0;
-              i < snapshot.data.docs[index]["Categories"].length;
-              i++) {
-                if (snapshot.data.docs[index]["Categories"][i] != "Laptop" && snapshot.data.docs[index]["Categories"][i] != "Drawing Tools" && snapshot.data.docs[index]["Categories"][i] != "Notes" && snapshot.data.docs[index].id!=login ) {
+                  i < snapshot.data.docs[index]["Categories"].length;
+                  i++) {
+                if (snapshot.data.docs[index]["Categories"][i] != "Laptop" &&
+                    snapshot.data.docs[index]["Categories"][i] !=
+                        "Drawing Tools" &&
+                    snapshot.data.docs[index]["Categories"][i] != "Notes" &&
+                    snapshot.data.docs[index].id != login) {
+                  print(snapshot.data.docs[index].id);
                   DocumentSnapshot documentSnapshot = snapshot.data.docs[index];
                   // CollectionReference collectionReference =
                   //     documentSnapshot.reference.collection("Posts");
                   mywidgets.add(Card(
                       child: Column(children: [
-                        // Text(snapshot.data.docs[index]["Name"]),
-                        PostWidget(
-                          collectionReference:
-                          documentSnapshot.reference.collection("Posts"),
-                          category: "Others",
-                          docsnap: snapshot.data.docs[index],
-                            posterData:snapshot.data.docs[index]
-
-                        )
-                      ])));
+                    // Text(snapshot.data.docs[index]["Name"]),
+                    PostWidget(
+                        collectionReference:
+                            documentSnapshot.reference.collection("Posts"),
+                        category: "Others",
+                        docsnap: snapshot.data.docs[index],
+                        posterData: snapshot.data.docs[index])
+                  ])));
                 }
               }
               return Container(

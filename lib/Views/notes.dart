@@ -13,9 +13,9 @@ class _LaptopsState extends State<Notes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("NOTES"),
-      ),
+      // appBar: AppBar(
+      //   title: Text("NOTES"),
+      // ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance.collection("Users").snapshots(),
         builder: (context, dynamic snapshot) {
