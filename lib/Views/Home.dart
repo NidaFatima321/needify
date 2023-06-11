@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:needify/Views/sold_items.dart';
 import '../reusable_widgets/UserImage.dart';
 import '../reusable_widgets/round_image.dart';
 import 'SignIn.dart';
+import 'dashboard_needify.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,14 +17,23 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final currentUser = FirebaseAuth.instance;
-  var currentPage = DrawerSelections.Home;
+  var currentPage = DrawerSelections.Dashboard;
 
   @override
   Widget build(BuildContext context) {
+    var container;
+    if(currentPage == DrawerSelections.Dashboard){
+      container = Dashboard();
+    } //else if (currentPage == DrawerSelections.MyPurchases){
+      //container = my_purchases();
+    //}
+    else if (currentPage == DrawerSelections.SoldItems){
+      container = SoldItems();
+    }
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        //backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Text(
           "Home",
@@ -90,7 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: Container(
+      body: container,
+      /*body: Container(
         child: Center(
           child: ElevatedButton(
             child: Text("Logout"),
@@ -103,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ),
-      ),
+      ),*/
     );
   }
 
@@ -112,12 +124,12 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.only(top: 70,),
       child: Column(
         children: [
-          menuItem(1, "Home", Icons.dashboard_outlined,
-              currentPage == DrawerSelections.Home? true : false),
+          menuItem(1, "Dashboard", Icons.dashboard_outlined,
+              currentPage == DrawerSelections.Dashboard? true : false),
           menuItem(1, "My Purchases", Icons.shopping_bag_outlined,
-              currentPage == DrawerSelections.SignIn? true : false),
-          menuItem(1, "My Posts", Icons.post_add_outlined,
-              currentPage == DrawerSelections.SignUp? true : false),
+              currentPage == DrawerSelections.MyPurchases? true : false),
+          menuItem(1, "Sold Items", Icons.sell_outlined,
+              currentPage == DrawerSelections.SoldItems? true : false),
         ],
       ),
     );
@@ -131,11 +143,11 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.pop(context);
           setState(() {
             if (id == 1) {
-              currentPage == DrawerSelections.Home;
+              currentPage == DrawerSelections.Dashboard;
             } else if (id == 2) {
-              currentPage == DrawerSelections.SignIn;
+              currentPage == DrawerSelections.MyPurchases;
             } else if (id == 3) {
-              currentPage == DrawerSelections.SignUp;
+              currentPage == DrawerSelections.SoldItems;
             }
           });
         },
@@ -169,8 +181,8 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 enum DrawerSelections {
-  Home,
-  SignIn,
-  SignUp
+  Dashboard,
+  MyPurchases,
+  SoldItems,
 }
 

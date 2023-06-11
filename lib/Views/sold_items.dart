@@ -15,9 +15,6 @@ class _SoldItemsState extends State<SoldItems> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("SOLD ITEMS"),
-        ),
         body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
           stream: FirebaseFirestore.instance.collection("Users").snapshots(),
           builder: (context, dynamic snapshot) {
@@ -68,6 +65,7 @@ class _SoldItemsState extends State<SoldItems> {
               },
             );
           },
-        ));
+        )
+    );
   }
 }
