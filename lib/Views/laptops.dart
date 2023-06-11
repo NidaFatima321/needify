@@ -51,8 +51,7 @@ class _LaptopsState extends State<Laptop> {
                           documentSnapshot.reference.collection("Posts"),
                       category: "Laptop",
                       docsnap: snapshot.data.docs[index],
-
-
+                      posterData:snapshot.data.docs[index]
                     )
                   ])));
                 }
