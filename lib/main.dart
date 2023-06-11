@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:needify/Views/Home.dart';
 import 'package:needify/Views/SignIn.dart';
 import 'package:needify/Views/SignUp.dart';
 import 'package:needify/Views/my_purchases.dart';
