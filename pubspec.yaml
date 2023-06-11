@@ -47,6 +47,7 @@ dependencies:
   flutter_image_compress: ^2.0.3
   firebase_storage: ^11.2.1
   flutter_email_sender: ^5.0.2
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

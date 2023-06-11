@@ -14,9 +14,9 @@ class _DrawingToolsState extends State<DrawingTools> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("DRAWING TOOLS"),
-      ),
+      // appBar: AppBar(
+      //   title: Text("DRAWING TOOLS"),
+      // ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance.collection("Users").snapshots(),
         builder: (context, dynamic snapshot) {

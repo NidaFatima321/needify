@@ -14,9 +14,9 @@ class _OtherCategoriesState extends State<OtherCategories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("OTHER CATEGORIES"),
-      ),
+      // appBar: AppBar(
+      //   title: Text("OTHER CATEGORIES"),
+      // ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance.collection("Users").snapshots(),
         builder: (context, dynamic snapshot) {
