@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:needify/Views/LogOut.dart';
 import 'package:needify/Views/my_purchases.dart';
 import 'package:needify/Views/sold_items.dart';
 import '../reusable_widgets/UserImage.dart';

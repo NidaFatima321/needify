@@ -23,8 +23,9 @@ class _SignInScreenState extends State<SignInScreen> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
+
         decoration: BoxDecoration(
-          color: Color(0xFF25253D),
+          color: Color(0xFF25253D)
         ),
 
         child: SingleChildScrollView(
