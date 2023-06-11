@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-// import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class EmailDialog extends StatelessWidget {
   const EmailDialog({Key? key}) : super(key: key);
@@ -15,30 +15,33 @@ class EmailDialog extends StatelessWidget {
     TextEditingController body = TextEditingController();
     PlatformFile? _file;
 
-
     getfile() async {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
         PlatformFile file = result.files.first;
-        _file = File(result.files.single.path!) as PlatformFile?;
+        _file = PlatformFile(path:result.files.single.path, name: result.files.single.name,size: result.files.single.size);
         print(file);
       } else {
         print("No file selected");
       }
     }
+    Future<void> send() async {
+      final Email email = Email(
+        body: body.text,
+        subject: subject.text,
+        recipients: [recipient.text],
+        attachmentPaths: [_file!.path!],
+      );
+      String platformResponse;
 
-    // sendEmail() async{
-    //   final Email email = Email(
-    //     body: body.text,
-    //     subject:subject.text,
-    //     recipients: [recipient.text],
-    //     cc: [cc.text],
-    //     bcc:[bcc.text],
-    //     attachmentPaths:[_file!.path!],
-    //     isHTML: false,
-    //   );
-    //   await FlutterEmailSender.send(email);
-    // }
+      try {
+        await FlutterEmailSender.send(email);
+        platformResponse = 'success';
+      } catch (error) {
+        platformResponse = error.toString();
+      }
+
+    }
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
@@ -172,7 +175,7 @@ class EmailDialog extends StatelessWidget {
                         width: constraints.maxWidth,
                         height: 50,
                         child: ElevatedButton(
-                            onPressed: (){}, child: Text("Send Email")))
+                            onPressed: send, child: Text("Send Email")))
                   ]),
             ),
           ),
