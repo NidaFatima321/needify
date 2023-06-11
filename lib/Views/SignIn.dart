@@ -21,58 +21,76 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
-        height: MediaQuery
-            .of(context)
-            .size
-            .height,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              hexStringToColors("CB2B93"),
-              hexStringToColors("9546C4"),
-              hexStringToColors("5E61F4")
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)
+          color: Color(0xFF25253D),
         ),
+
         child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(
-                20, MediaQuery
-                .of(context)
-                .size
-                .height * 0.2, 20, 0),
-            child: Column(
-              children: <Widget>[
-                logoWidget('assets/images/upload.jpg'),
-                SizedBox(
-                  height: 50,
-                ),
-                textField("Enter Email Id", Icons.person_outline, false,
-                    _emailTextController),
-                SizedBox(
-                  height: 20,
-                ),
-                textField("Enter Password", Icons.lock_outline, true,
-                    _passwordTextController),
-                SizedBox(
-                  height: 20,
-                ),
-                signinSignupButton(context, true, () {
-                  FirebaseAuth.instance.signInWithEmailAndPassword(
-                      email: _emailTextController.text, password: _passwordTextController.text).then((value) {
+          child: Column(
+            children: <Widget>[
+              //logoWidget("assets/images/login3.png"),
+              SizedBox(height: 80),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  //crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Welcome back',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'User please Sign in to continue',
+                      style: TextStyle(
+                        color: Color(0xFF9696C0),
+                        fontSize: 18,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    textField("Enter Email", Icons.email_outlined, false,
+                        _emailTextController),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    textField("Enter Password", Icons.lock_outline, true,
+                        _passwordTextController),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    signinSignupButton(context, true, () {
+                      FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: _emailTextController.text, password: _passwordTextController.text).then((value) {
 
                         login=_emailTextController.text;
                         Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Dashboard()));
-                  }).onError((error, stackTrace) {
-                    print("Error ${error.toString()}");
-                  });
-                }),
-                signUpOption()
-              ],
-            ),
+                            MaterialPageRoute(builder: (context) => HomeScreen()));
+                      }).onError((error, stackTrace) {
+                        print("Error ${error.toString()}");
+                      });
+                    }),
+                    signUpOption()
+                  ],
+                ),
+              ),
+
+            ],
           ),
         ),
       ),
