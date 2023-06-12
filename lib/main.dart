@@ -6,12 +6,13 @@ import 'package:needify/Views/SignIn.dart';
 import 'package:needify/Views/SignUp.dart';
 import 'package:needify/Views/my_purchases.dart';
 import 'Views/add_post.dart';
+import 'Views/splash_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
-    home: SignInScreen(),
+    home: SplashScreen(),
   ));
 }
 
