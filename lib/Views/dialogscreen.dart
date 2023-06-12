@@ -37,6 +37,11 @@ class DialogScreen extends StatelessWidget {
                         color: Colors.blueGrey,
                         fontFamily: "Times New Roman"
                     ),),
+                    Text('Year of Study : ${posterData['Year']}',style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.blueGrey,
+                        fontFamily: "Times New Roman"
+                    ),),
                     Padding(
                       padding: const EdgeInsets.all(22.0),
                       child: Row(
@@ -55,7 +60,7 @@ class DialogScreen extends StatelessWidget {
                               child: Icon(Icons.email))
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

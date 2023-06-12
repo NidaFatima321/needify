@@ -62,11 +62,13 @@ class _PostWidgetState extends State<PostWidget> {
                       width: 200,
                       height: 140,
                     ),
-                    const SizedBox(width: 5,),
+                    const SizedBox(width: 3,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(snapshot.data!.docs[index]["Title"],style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: "Pacifico"),),
+                        SizedBox(
+                            width:170,
+                            child: Text(snapshot.data!.docs[index]["Title"],style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: "Times New Roman"),)),
                         Text('(${snapshot.data!.docs[index]["Condition"]})',style: const TextStyle(fontSize: 18,color: Colors.lightBlue),),
                         Text(snapshot.data!.docs[index]["Brand"],style: const TextStyle(fontSize: 18,fontFamily: 'Times New Roman'),),
                         Text(snapshot.data!.docs[index]["Category"],style: const TextStyle(fontSize: 18),),
@@ -98,7 +100,7 @@ class _PostWidgetState extends State<PostWidget> {
                                                   title: Text("JazzCash"),
                                                   trailing: GestureDetector(
                                                       onTap: (){
-                                                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentDecision(),));
+                                                        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentDecision(postsdata: snapshot.data!.docs[index],),));
                                                       },
                                                       child: Icon(Icons.arrow_forward)),
                                                 ),
@@ -109,7 +111,7 @@ class _PostWidgetState extends State<PostWidget> {
                                                   title: Text("Cash On Delivery"),
                                                   trailing: GestureDetector(
                                                       onTap: (){
-                                                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentDecision(),));
+                                                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentDecision(postsdata: snapshot.data!.docs[index],collectionReference: widget.collectionReference,docssnap:widget.docsnap),));
                                                       },
                                                       child: Icon(Icons.arrow_forward)),
                                                 ),
