@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:needify/Views/category_widget.dart';
 import 'package:needify/Views/drawing_tools.dart';
-import 'package:needify/Views/laptops.dart';
+import 'package:needify/Views/Laptop.dart';
 import 'package:needify/Views/my_purchases.dart';
 import 'package:needify/Views/notes.dart';
 import 'package:needify/Views/other_categories.dart';
