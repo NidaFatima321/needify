@@ -126,7 +126,7 @@ class _AddPostState extends State<AddPost> {
   }
 
 
-  String valueChoose = "Tools";
+  String valueChoose = "Drawing Tools";
   List<String> listItem = <String>[
     "Laptop", "Notes", "Drawing Tools", "Others"
   ];
@@ -368,8 +368,8 @@ class _AddPostState extends State<AddPost> {
                     children: [
                       Icon(Icons.info),
                       Container(
-                        width: 350,
-                       // height: 40,
+                        width: 300,
+                      //eight: 50,
                         child: Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
