@@ -8,13 +8,15 @@ import 'package:needify/Views/dashboard_needify.dart';
 import 'dart:core';
 
 import 'package:needify/Views/my_purchases.dart';
+
+import '../main.dart';
 class AddPost extends StatefulWidget {
 
 
   AddPost({Key? key}) : super(key: key){
     //Getting the reference of root collection as Users
 
-    _userDocumentReference = FirebaseFirestore.instance.collection('Users').doc('zoyakashif234@gmail.com');
+    _userDocumentReference = FirebaseFirestore.instance.collection('Users').doc(login);
 
     //Get the collection reference for Posts collection of this document
     _referencePostsReference = _userDocumentReference.collection('Posts');
@@ -126,7 +128,7 @@ class _AddPostState extends State<AddPost> {
 
   String valueChoose = "Tools";
   List<String> listItem = <String>[
-    "Laptop", "Notes", "Tools", "Others"
+    "Laptop", "Notes", "Drawing Tools", "Others"
   ];
 
   TextEditingController _titleController = TextEditingController();
@@ -134,6 +136,7 @@ class _AddPostState extends State<AddPost> {
   TextEditingController _condController = TextEditingController();
   TextEditingController _brandController = TextEditingController();
   TextEditingController _priceController = TextEditingController();
+  TextEditingController _statusController = TextEditingController();
 
 
   String imageUrl = '';
@@ -292,6 +295,20 @@ class _AddPostState extends State<AddPost> {
                     ),
 
                   ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _statusController,
+                    decoration: InputDecoration(
+                        hintText: " Status",
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 3,
+                              color: Color(0xFFC52348),
+                            )
+                        )
+                    ),
+
+                  ),
 
                   SizedBox(height: 20),
                   GestureDetector(
@@ -414,6 +431,7 @@ class _AddPostState extends State<AddPost> {
                       String cond = _condController.text;
                       String brand = _brandController.text;
                       String price = _priceController.text;
+                      String status = _statusController.text;
                       String category = valueChoose;
                       String jazzAccNo = _jazzAccController.text;
 
@@ -428,6 +446,7 @@ class _AddPostState extends State<AddPost> {
                         'Condition' : cond,
                         'Brand' : brand,
                         'Price' : price,
+                        'Status' : status,
                         'Image' : imageUrl,
                         'Category' : category,
                       };
@@ -438,10 +457,18 @@ class _AddPostState extends State<AddPost> {
                       // final int postLength = await widget._referencePostsReference.snapshots().length;
                       // print(postLength);
 
+                      // QuerySnapshot posts = await widget._referencePostsReference.get();
+                      // int postLength = posts.docs.length;
+                      // widget._referencePostsReference.doc('zoyakashif23@gmail.com_${postLength +1 }').set(dataToSend);
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dashboard()));
+
                       QuerySnapshot posts = await widget._referencePostsReference.get();
                       int postLength = posts.docs.length;
-                      widget._referencePostsReference.doc('zoyakashif23@gmail.com_${postLength +1 }').set(dataToSend);
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dashboard()));
+                      String userPost = "${login}_${postLength+1}";
+                      widget._referencePostsReference.doc(userPost).set(dataToSend);
+                      print("Adeed Successfully!");
+                      print(userPost);
+                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dashboard()));
 
 
                     },
