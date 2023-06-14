@@ -34,7 +34,8 @@ class AddPost extends StatefulWidget {
 
 class _AddPostState extends State<AddPost> {
 
-  File? pickedImage;
+  File? pickedImage ;
+  bool showTextFields = false;
 
   void imagePickerOption(){
     Get.bottomSheet(
@@ -134,10 +135,14 @@ class _AddPostState extends State<AddPost> {
   TextEditingController _brandController = TextEditingController();
   TextEditingController _priceController = TextEditingController();
 
+
   String imageUrl = '';
 
   // late DocumentReference _userDocumentReference;
   //late CollectionReference _referencePostsReference;
+
+  TextEditingController _jazzAccController = TextEditingController();
+
 
 
 
@@ -289,16 +294,15 @@ class _AddPostState extends State<AddPost> {
                   ),
 
                   SizedBox(height: 20),
-                  InkWell(
+                  GestureDetector(
+
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         height: 200,
                         color: Colors.teal,
                         child: Stack(
                           children: [
-                            pickedImage != null ?
-                            Image.file(pickedImage!,width:MediaQuery.of(context).size.width,fit: BoxFit.cover,):
-                            Image.asset("assets/images/upload.jpg",
+                            pickedImage != null ? Image.file(pickedImage!,width:MediaQuery.of(context).size.width,fit: BoxFit.cover,): Image.asset("assets/images/upload.jpg",
                               fit: BoxFit.cover,
                               width: MediaQuery.of(context).size.width,
                               height: 200,
@@ -311,8 +315,9 @@ class _AddPostState extends State<AddPost> {
                           ],
                         ),
                       ),
-                      onTap:
-                      imagePickerOption
+                    onTap:
+                    imagePickerOption,
+
                     //   ImagePicker imagePicker = ImagePicker();
                     //   XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
                     //   //imagePicker.pickImage(source: ImageSource.gallery);
@@ -342,6 +347,66 @@ class _AddPostState extends State<AddPost> {
 
                   SizedBox(height: 20),
 
+                  Row(
+                    children: [
+                      Icon(Icons.info),
+                      Container(
+                        width: 350,
+                       // height: 40,
+                        child: Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Do You Already input your Jazzcash Account Number for receiving payment, If No, Click on No Button!",
+                              //overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    width: 150,
+                    child: TextButton(
+                        onPressed: (){
+                          setState(() {
+                            showTextFields = !showTextFields;
+                          });
+
+                        },
+                        child: Text("No"),
+
+                    ),
+                  ),
+
+                  Visibility(
+                    visible: showTextFields,
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller:_jazzAccController,
+                          decoration: InputDecoration(
+                            hintText: "Enter Your Jazzash Account Number",
+                            labelText: 'Jazzcash Account Number',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        )
+                        // TextField(
+                        //   decoration: InputDecoration(
+                        //     labelText: 'Password',
+                        //   ),
+                        // ),
+                        // TextField(
+                        //   decoration: InputDecoration(
+                        //     labelText: 'Integrity Salt',
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ),
+
+
                   ElevatedButton(
                     onPressed: () async {
                       String title = _titleController.text;
@@ -350,6 +415,12 @@ class _AddPostState extends State<AddPost> {
                       String brand = _brandController.text;
                       String price = _priceController.text;
                       String category = valueChoose;
+                      String jazzAccNo = _jazzAccController.text;
+
+
+
+                      // Add the new value at the 0th index
+                     // array.insert(0, 'New Value');
 
                       Map<String,String> dataToSend = {
                         'Title'  : title,
@@ -371,7 +442,11 @@ class _AddPostState extends State<AddPost> {
                       int postLength = posts.docs.length;
                       widget._referencePostsReference.doc('zoyakashif23@gmail.com_${postLength +1 }').set(dataToSend);
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dashboard()));
+
+
                     },
+                    child: Text("Post"),
+                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.cyan)),
                     child: Text("Post", style: TextStyle(fontSize: 22),),
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.resolveWith((states) {

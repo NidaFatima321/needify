@@ -9,11 +9,12 @@ import 'package:needify/Views/email_dialog.dart';
 import 'package:needify/Views/my_purchases.dart';
 import 'Views/add_post.dart';
 import 'Views/splash_screen.dart';
+import 'package:get/get.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     home: SplashScreen(),
   ));
 }
