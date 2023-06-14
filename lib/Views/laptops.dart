@@ -14,9 +14,11 @@ class _LaptopsState extends State<Laptop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("LAPTOPS"),
-      // ),
+       appBar: AppBar(
+         backgroundColor: Color(0xFFC52348),
+         foregroundColor: Colors.black,
+         title: Text("LAPTOPS"),
+       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance.collection("Users").snapshots(),
         builder: (context, dynamic snapshot) {
@@ -52,12 +54,12 @@ class _LaptopsState extends State<Laptop> {
                       category: "Laptop",
                       docsnap: snapshot.data.docs[index],
                       posterData:snapshot.data.docs[index]
-                    )
+                    ),
                   ])));
                 }
               }
               return Container(
-                child: Column(
+                  child: Column(
                   children: mywidgets,
                 ),
               );

@@ -19,47 +19,66 @@ class DialogScreen extends StatelessWidget {
               width: constraints.maxWidth,
               height: constraints.maxHeight*0.6,
               color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
+              child: Column(
                   children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(posterData['Image'])),
-                    Text(posterData["Name"],style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blueGrey,
-                      fontFamily: "Times New Roman"
+                    Container(
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(posterData['Image'])),
                     ),
-                    ),
-                    Text(posterData['Department'],style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.blueGrey,
-                        fontFamily: "Times New Roman"
-                    ),),
                     Padding(
-                      padding: const EdgeInsets.all(22.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          GestureDetector(
-                              onTap:(){
-                                launch('tel://${posterData["contactNumber"]}');
-                              },
-                              child: Icon(Icons.call)),
-                          GestureDetector(
-                              onTap: (){
-                                // showDialog(context: context, builder: (context) => EmailDialog());
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmailDialog(),));
-                              },
-                              child: Icon(Icons.email))
-                        ],
+                      padding: EdgeInsets.only(top: 25),
+                      child: Container(
+                        color: Colors.green,
+                        child: Column(
+                          children:[
+                            SizedBox(
+                              height: 16,
+                            ),
+                            Text(posterData["Name"],style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontFamily: "Times New Roman",
+                              fontWeight: FontWeight.bold
+                            ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(posterData['Department'],style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontFamily: "Times New Roman",
+                                fontWeight: FontWeight.bold
+                            ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(22.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  GestureDetector(
+                                      onTap:(){
+                                        launch('tel://${posterData["contactNumber"]}');
+                                      },
+                                      child: Icon(Icons.call, color: Colors.white,)),
+                                  GestureDetector(
+                                      onTap: (){
+                                        // showDialog(context: context, builder: (context) => EmailDialog());
+                                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmailDialog(),));
+                                      },
+                                      child: Icon(Icons.email, color: Colors.white,))
+                                ],
+                              ),
+                            )
+                          ]
+                        ),
                       ),
-                    )
+                    ),
+
                   ],
                 ),
               ),
-            ),
           ),
         );
       },

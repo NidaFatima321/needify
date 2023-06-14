@@ -53,10 +53,6 @@ class _LoadDataState extends State<LoadData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("My Purchases"),
-      ),
-
       body: ListView.builder(
         itemCount: purc.length == 0 ? 1 :purc.length,
         itemBuilder: (context, index) {
@@ -94,7 +90,7 @@ class _LoadDataState extends State<LoadData> {
                 snapshot.data!.data() as Map<String, dynamic>;
 
                 return ListTile(
-                  title: Text(data["Title"].toString()),
+                  title: Text(data["Title"].toString(), style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                   trailing: Text(data["Brand"].toString()),
                   subtitle: Text("Price:${data["Price"]}".toString()),
                   leading: Container(

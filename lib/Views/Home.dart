@@ -41,7 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        //backgroundColor: Colors.transparent,
+        backgroundColor: Color(0xFFC52348),
+        foregroundColor: Colors.black,
         elevation: 0,
         title: const Text(
           "NEEDIFY",
@@ -66,7 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context, index) {
                               var data = snapshot.data!.docs[index];
                               return Container(
-                                color: Color(0xFF3375A9),
+                                //color: Color(0xFF25253D),
+                                color: Color(0xFF050542),
                                 width: double.infinity,
                                 height: 200,
                                 padding: EdgeInsets.only(top: 20,),
@@ -78,19 +80,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                         height: 80,
                                         width: 80
                                     ),
+                                     SizedBox(
+                                      height: 10,
+                                     ),
                                       //Image.network(data["User image"].toString()),
                                     Text(
                                       data["Name"],
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
+                                        fontWeight: FontWeight.bold
                                       ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
                                     ),
                                     Text(
                                       data["Email"],
                                       style: TextStyle(
                                         color: Colors.grey[200],
-                                        fontSize: 14,
+                                        fontSize: 15,
                                       ),
                                     ),
                                   ],

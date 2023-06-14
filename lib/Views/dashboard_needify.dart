@@ -24,7 +24,8 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF252530),
+      //backgroundColor: Color(0xFF202491),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20, 120, 20, 20),
         child: Column(
@@ -58,9 +59,10 @@ class _DashboardState extends State<Dashboard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
                 CategoryWidget(
                   categoryimage:
-                      "https://www.pngmart.com/files/1/Laptop-PNG-Picture-420x267.png",
+                      "https://img.icons8.com/?size=1x&id=MFk6IqgCtnGg&format=png",
                   categoryname: "Laptop",
                   navigate: () {
                     Navigator.push(
@@ -72,7 +74,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 CategoryWidget(
                   categoryimage:
-                      "https://png.pngtree.com/png-clipart/20221229/original/pngtree-cream-sticky-notes-paper-illustration-with-clip-white-transparent-background-png-image_8822924.png",
+                      "https://img.icons8.com/?size=1x&id=dr9VaG7p8e1a&format=png",
                   categoryname: "Notes",
                   navigate: () {
                     Navigator.push(
@@ -92,7 +94,7 @@ class _DashboardState extends State<Dashboard> {
               children: [
                 CategoryWidget(
                     categoryimage:
-                        "https://static.vecteezy.com/system/resources/previews/009/344/824/original/3d-illustration-engineering-helmet-and-tools-png.png",
+                        "https://img.icons8.com/?size=1x&id=xdC06v7JSTKS&format=png",
                     categoryname: "Drawing Tools",
                     navigate: () {
                       Navigator.push(
@@ -103,7 +105,7 @@ class _DashboardState extends State<Dashboard> {
                     }),
                 CategoryWidget(
                     categoryimage:
-                        "https://static.vecteezy.com/system/resources/previews/008/475/692/original/modern-laptop-isolated-on-white-background-3d-illustration-free-png.png",
+                        "https://img.icons8.com/?size=1x&id=lR3F6LWNiZ8C&format=png",
                     categoryname: "Others",
                     navigate: () {
                       Navigator.push(
@@ -134,12 +136,12 @@ class _DashboardState extends State<Dashboard> {
                       if (snapshot.data.docs[index].id == login) {
                         maindata = snapshot.data.docs[index];
                       }
-                      return Container(
+                      /*return Container(
                         child: Text(
                           "Items Found",
                           style: TextStyle(color: Color(0xFF252530)),
                         ),
-                      );
+                      );*/
                     },
                   );
                 },
@@ -151,7 +153,6 @@ class _DashboardState extends State<Dashboard> {
       ),
       bottomNavigationBar: BottomAppBar(
         // height: 70.0,
-        color: Color(0xFF252530),
         child: InkWell(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => AddPost()));
@@ -161,4 +162,5 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
+
 }

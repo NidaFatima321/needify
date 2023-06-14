@@ -146,8 +146,9 @@ class _AddPostState extends State<AddPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        title: Text("Create a Post"),
+        backgroundColor: Color(0xFFC52348),
+        foregroundColor: Colors.black,
+        title: Text("Create new Post"),
         leading: InkWell(
           onTap: (){
             Navigator.pop(context);
@@ -160,19 +161,65 @@ class _AddPostState extends State<AddPost> {
           child: Container(
             child: ListView(
                 children: [
+                  Center(
+                    child: Image.asset(
+                      'assets/images/post.png', // Replace with your image path
+                      width: 100, // Set the desired width
+                      height: 100, // Set the desired height
+                    ),
+                  ),
+                  Text(
+                    "Create Your Post and Sell with Ease",
+                    style: TextStyle(
+                      color: Color(0xFF081857), fontSize: 40, fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "This page designed exclusively for sellers like you. Get ready to unleash your "
+                        "selling potential and effortlessly showcase your items to a wide audience. With "
+                        "our intuitive platform, you can craft compelling posts that captivate potential "
+                        "buyers and pave the way for successful transactions.",
+                    style: TextStyle(
+                        fontSize: 15
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    "Add Details of Your Item Here",
+                    style: TextStyle(
+                      color: Color(0xFFC52348), fontSize: 20, fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 20),
                   TextFormField(
                     controller: _titleController,
                     decoration: InputDecoration(
                       hintText: "Add Title",
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 3,
+                          color: Color(0xFFC52348),
+                        )
+                      )
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 30),
                   TextField(
                     controller: _descController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Add Description',
-
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: Color(0xFFC52348),
+                        ),
+                      ),
                       // contentPadding: EdgeInsets.only(left:8.0,bottom:32.0,top:32.0),
                     ),
                     maxLength: 50,
@@ -203,7 +250,12 @@ class _AddPostState extends State<AddPost> {
                     controller: _condController,
                     decoration: InputDecoration(
                       hintText: " Condition",
-
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 3,
+                              color: Color(0xFFC52348),
+                            )
+                        )
                     ),
 
                   ),
@@ -212,7 +264,12 @@ class _AddPostState extends State<AddPost> {
                     controller: _brandController,
                     decoration: InputDecoration(
                       hintText: " Brand",
-
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 3,
+                              color: Color(0xFFC52348),
+                            )
+                        )
                     ),
 
                   ),
@@ -221,7 +278,12 @@ class _AddPostState extends State<AddPost> {
                     controller: _priceController,
                     decoration: InputDecoration(
                       hintText: " Price",
-
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 3,
+                              color: Color(0xFFC52348),
+                            )
+                        )
                     ),
 
                   ),
@@ -310,7 +372,18 @@ class _AddPostState extends State<AddPost> {
                       widget._referencePostsReference.doc('zoyakashif23@gmail.com_${postLength +1 }').set(dataToSend);
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dashboard()));
                     },
-                    child: Text("Post"),
+                    child: Text("Post", style: TextStyle(fontSize: 22),),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.resolveWith((states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return Colors.black26;
+                          }
+                          return Color(0xFF081857);
+                        }),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                        )
+                    ),
                   )
                 ]
 

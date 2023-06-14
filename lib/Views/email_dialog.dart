@@ -46,6 +46,8 @@ class EmailDialog extends StatelessWidget {
       builder: (context, constraints) {
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: Color(0xFFC52348),
+            foregroundColor: Colors.black,
             title: Text("Email"),
           ),
           body: SingleChildScrollView(
@@ -54,10 +56,38 @@ class EmailDialog extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Center(
+                      child: Image.asset(
+                        'assets/images/email.png', // Replace with your image path
+                        width: 100, // Set the desired width
+                        height: 100, // Set the desired height
+                      ),
+                    ),
+                    Text(
+                        "Compose and Send Email",
+                      style: TextStyle(
+                        color: Color(0xFF081857), fontSize: 40, fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Welcome to our Email Sending feature! This powerful tool allows you to effortlessly "
+                          "compose and send emails directly from our app. Whether you need to communicate "
+                          "with clients, colleagues, or friends, our intuitive interface makes it easy to "
+                          "craft and deliver your messages with just a few clicks.",
+                      style: TextStyle(
+                        fontSize: 15
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
                     Text(
                       "Subject",
                       style: TextStyle(
-                          fontSize: 20, fontFamily: 'Times New Roman'),
+                        color: Color(0xFFA4062A), fontSize: 20, fontFamily: 'Times New Roman', fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 10,
@@ -73,12 +103,12 @@ class EmailDialog extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 30,
                     ),
                     Text(
                       "Recipient",
                       style: TextStyle(
-                          fontSize: 20, fontFamily: 'Times New Roman'),
+                          color: Color(0xFFA4062A),fontSize: 20, fontFamily: 'Times New Roman', fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 10,
@@ -94,12 +124,12 @@ class EmailDialog extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                     Text(
                       "BCC",
                       style: TextStyle(
-                          fontSize: 20, fontFamily: 'Times New Roman'),
+                          color: Color(0xFFA4062A),fontSize: 20, fontFamily: 'Times New Roman', fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 10,
@@ -115,12 +145,12 @@ class EmailDialog extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                     Text(
                       "CC",
                       style: TextStyle(
-                          fontSize: 20, fontFamily: 'Times New Roman'),
+                          color: Color(0xFFA4062A), fontSize: 20, fontFamily: 'Times New Roman', fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 10,
@@ -136,12 +166,12 @@ class EmailDialog extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                     Text(
                       "Body",
                       style: TextStyle(
-                          fontSize: 20, fontFamily: 'Times New Roman'),
+                          color: Color(0xFFA4062A), fontSize: 20, fontFamily: 'Times New Roman', fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 10,
@@ -158,7 +188,7 @@ class EmailDialog extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                     SizedBox(
                       width: constraints.maxWidth,
@@ -166,16 +196,38 @@ class EmailDialog extends StatelessWidget {
                       child: ElevatedButton(
                           onPressed: getfile,
                           child: Text("Attatch Files"),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                          )),
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.resolveWith((states) {
+                              if (states.contains(MaterialState.pressed)) {
+                                return Colors.black26;
+                              }
+                              return Color(0xFFC90505);
+                            }),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                            )
+                        ),
+                      ),
                     ),
                     SizedBox(height: 20,),
                     SizedBox(
                         width: constraints.maxWidth,
                         height: 50,
                         child: ElevatedButton(
-                            onPressed: send, child: Text("Send Email")))
+                            onPressed: send, child: Text("Send Email"),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.resolveWith((states) {
+                                if (states.contains(MaterialState.pressed)) {
+                                  return Colors.black26;
+                                }
+                                return Color(0xFF081857);
+                              }),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                              )
+                          ),
+                        )
+                    )
                   ]),
             ),
           ),
