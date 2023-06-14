@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:group_radio_button/group_radio_button.dart';
+import 'package:needify/Views/jazzcash_screen.dart';
 import 'package:needify/Views/payment_screen.dart';
 import 'package:needify/main.dart';
 
@@ -101,6 +102,8 @@ class _PostWidgetState extends State<PostWidget> {
                                                   trailing: GestureDetector(
                                                       onTap: (){
                                                         // Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentDecision(postsdata: snapshot.data!.docs[index],),));
+                                                         Navigator.push(context, MaterialPageRoute(builder: (context) => JazzCashScreen(productPrice:snapshot.data!.docs[index]["Price"], productName:snapshot.data!.docs[index]["Title"])));
+
                                                       },
                                                       child: Icon(Icons.arrow_forward)),
                                                 ),
