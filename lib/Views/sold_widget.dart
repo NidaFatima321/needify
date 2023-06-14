@@ -50,7 +50,7 @@ class _SoldWidgetState extends State<SoldWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Image.network(
-                        snapshot.data!.docs[index]["Images"][0],
+                        snapshot.data!.docs[index]["Image"],
                         width: 150,
                         height: 140,
                       ),

@@ -1,11 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jazzcash_flutter/jazzcash_flutter.dart';
+import 'package:needify/main.dart';
+
+import 'checkoutScreen.dart';
 
 
 class JazzCashScreen extends StatefulWidget {
   final String productPrice;
   final String productName;
-  const JazzCashScreen({Key? key,required this.productPrice,required this.productName}) : super(key: key);
+  final CollectionReference collectionReference;
+  final DocumentSnapshot postsData;
+  final DocumentSnapshot docssnap;
+  const JazzCashScreen({Key? key,required this.productPrice,required this.productName, required this.collectionReference, required this.postsData, required this.docssnap}) : super(key: key);
 
   @override
   State<JazzCashScreen> createState() => _JazzCashScreenState();
@@ -66,9 +73,42 @@ class _JazzCashScreenState extends State<JazzCashScreen> {
 
       jazzCashFlutter.startPayment(paymentDataModelV1: paymentDataModelV1, context: context).then((_response) {
         print("response from jazzcash $_response");
+              widget.collectionReference
+                  .doc(widget.postsData.id)
+                  .update({"Status": "Sold"});
+
+              List<dynamic> news = [];
+              for (int i = 0;
+              i < maindata!["Purchased"].length;
+              i++) {
+                news.add(maindata!["Purchased"][i]);
+              }
+              print(maindata!["Name"]);
+              news.add(widget.postsData.id);
+              print(news);
+              FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc(login)
+                  .update({"Purchased": news});
+              print(maindata!.id);
+              String logid =
+                  widget.collectionReference.parent!.id;
+              List<dynamic> soldItems = [];
+              for (int i = 0;
+              i < widget.docssnap["Sold"].length;
+              i++) {
+                soldItems.add(widget.docssnap["Sold"][i]);
+              }
+              soldItems.add(widget.postsData.id);
+              FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc(logid)
+                  .update({"Sold": soldItems});
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Checkout(),));
+
+
 
         setState(() {});
-        Navigator.pop(context);
       });
     } catch (err) {
       print("Error in payment $err");

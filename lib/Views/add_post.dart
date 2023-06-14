@@ -445,8 +445,6 @@ class _AddPostState extends State<AddPost> {
 
 
                     },
-                    child: Text("Post"),
-                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.cyan)),
                     child: Text("Post", style: TextStyle(fontSize: 22),),
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.resolveWith((states) {

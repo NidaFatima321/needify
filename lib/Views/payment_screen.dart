@@ -29,7 +29,7 @@ class PaymentDecision extends StatelessWidget {
                   Card(
                     child: Row(
                       children: [
-                        Image.network(postsdata['Images'][0], width: 160),
+                        Image.network(postsdata['Image'], width: 160),
                         SizedBox(width:5),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
