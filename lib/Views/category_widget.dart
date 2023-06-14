@@ -51,7 +51,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                     color:Colors.white, fontWeight:FontWeight.w500,fontSize: 20),
               ),
               SizedBox(height: 10,),
-              Image.network(widget.categoryimage,width: 120,height: 100,)
+              Image.network(widget.categoryimage,width: 150,height: 100,)
             ],
           ),
         ),

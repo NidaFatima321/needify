@@ -43,7 +43,7 @@ class _PostWidgetState extends State<PostWidget> {
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(15),
           ),
           // color: Colors.teal,
           height: 200,
@@ -83,7 +83,7 @@ class _PostWidgetState extends State<PostWidget> {
                           style: const TextStyle(
                               fontSize: 18, color: Colors.lightBlue),
                         ),
-                        Text(
+                        Text("Brand: "+
                           snapshot.data!.docs[index]["Brand"],
                           style: const TextStyle(
                               fontSize: 18, fontFamily: 'Times New Roman'),
@@ -92,10 +92,10 @@ class _PostWidgetState extends State<PostWidget> {
                           snapshot.data!.docs[index]["Category"],
                           style: const TextStyle(fontSize: 18),
                         ),
-                        Text(
+                        Text("Price: "+
                           "${snapshot.data!.docs[index]["Price"]}",
                           style:
-                              const TextStyle(fontSize: 18, color: Colors.red),
+                              const TextStyle(fontSize: 18, color: Colors.red, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           width: 150,
@@ -107,6 +107,17 @@ class _PostWidgetState extends State<PostWidget> {
                         Row(
                           children: [
                             ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.resolveWith((states) {
+                                      if (states.contains(MaterialState.pressed)) {
+                                        return Colors.black26;
+                                      }
+                                      return Color(0xFF081857);
+                                    }),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                                    )
+                                ),
                                 onPressed: () {
                                   showModalBottomSheet<void>(
                                     context: context,
@@ -264,7 +275,7 @@ class _PostWidgetState extends State<PostWidget> {
                           style: const TextStyle(
                               fontSize: 18, color: Colors.lightBlue),
                         ),
-                        Text(
+                        Text("Brand: "+
                           snapshot.data!.docs[index]["Brand"],
                           style: const TextStyle(
                               fontSize: 18, fontFamily: 'Times New Roman'),
@@ -273,10 +284,10 @@ class _PostWidgetState extends State<PostWidget> {
                           snapshot.data!.docs[index]["Category"],
                           style: const TextStyle(fontSize: 18),
                         ),
-                        Text(
+                        Text("Price: "+
                           "${snapshot.data!.docs[index]["Price"]}",
                           style:
-                          const TextStyle(fontSize: 18),
+                          const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           width: 150,
@@ -285,7 +296,7 @@ class _PostWidgetState extends State<PostWidget> {
                             style: TextStyle(color: Colors.grey, fontSize: 16),
                           ),
                         ),
-                        Text("SOLD",style: TextStyle(color: Colors.red,fontSize: 17),)
+                        Text("SOLD",style: TextStyle(color: Colors.red,fontSize: 17, fontWeight: FontWeight.bold),)
                 ]),
                   ],
                 )]));

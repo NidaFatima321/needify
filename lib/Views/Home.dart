@@ -119,20 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: container,
-      /*body: Container(
-        child: Center(
-          child: ElevatedButton(
-            child: Text("Logout"),
-            onPressed: () {
-              FirebaseAuth.instance.signOut().then((value) {
-                print("Signed Out!");
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignInScreen()));
-              });
-            },
-          ),
-        ),
-      ),*/
+
     );
   }
 
