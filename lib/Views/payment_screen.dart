@@ -30,6 +30,7 @@ class PaymentDecision extends StatelessWidget {
                     child: Row(
                       children: [
                         Image.network(postsdata['Images'][0], width: 160),
+                        SizedBox(width:5),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -58,18 +59,7 @@ class PaymentDecision extends StatelessWidget {
                     ),
                   ),
                   Expanded(child: SizedBox()),
-                  // SizedBox(
-                  //   width: constraints.maxWidth,
-                  //   child: ElevatedButton.icon(
-                  //     onPressed: () {
-                  //     },
-                  //     icon: Icon(Icons.cancel_outlined,color: Colors.green[100],),
-                  //     label: Text("Clear",style: TextStyle(color: Colors.green[100],fontWeight: FontWeight.bold),),
-                  //     style: ElevatedButton.styleFrom(
-                  //         backgroundColor: Colors.green),
-                  //
-                  //   ),
-                  // ),
+
                   Row(
                     children: [
                       Expanded(

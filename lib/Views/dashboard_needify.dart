@@ -136,12 +136,12 @@ class _DashboardState extends State<Dashboard> {
                       if (snapshot.data.docs[index].id == login) {
                         maindata = snapshot.data.docs[index];
                       }
-                      /*return Container(
+                      return Container(
                         child: Text(
                           "Items Found",
-                          style: TextStyle(color: Color(0xFF252530)),
+                          style: TextStyle(color: Colors.white),
                         ),
-                      );*/
+                      );
                     },
                   );
                 },

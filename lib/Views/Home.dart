@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:needify/Views/faq.dart';
 // import 'package:needify/Views/LogOut.dart';
 import 'package:needify/Views/my_purchases.dart';
 import 'package:needify/Views/sold_items.dart';
@@ -31,6 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
       container = LoadData();
     } else if (currentPage == DrawerSelections.SoldItems){
       container = SoldItems();
+    } else if (currentPage == DrawerSelections.FAQ){
+      container = FAQFINAL();
     } else if (currentPage == DrawerSelections.Logout){
       FirebaseAuth.instance.signOut().then((value) {
         print("Signed Out!");
@@ -134,7 +137,9 @@ class _HomeScreenState extends State<HomeScreen> {
               currentPage == DrawerSelections.MyPurchases? true : false),
           menuItem(3, "Sold Items", Icons.sell_outlined,
               currentPage == DrawerSelections.SoldItems? true : false),
-          menuItem(4, "Logout", Icons.logout_outlined,
+          menuItem(4, "FAQ", Icons.question_answer,
+              currentPage == DrawerSelections.FAQ? true : false),
+          menuItem(5, "Logout", Icons.logout_outlined,
               currentPage == DrawerSelections.Logout? true : false),
         ],
       ),
@@ -155,6 +160,8 @@ class _HomeScreenState extends State<HomeScreen> {
             } else if (id == 3) {
               currentPage = DrawerSelections.SoldItems;
             } else if (id == 4) {
+              currentPage = DrawerSelections.FAQ;
+            }else if (id == 5) {
               currentPage = DrawerSelections.Logout;
             }
           });
@@ -193,5 +200,6 @@ enum DrawerSelections {
   MyPurchases,
   SoldItems,
   Logout,
+  FAQ
 }
 

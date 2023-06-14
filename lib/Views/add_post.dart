@@ -163,7 +163,7 @@ class _AddPostState extends State<AddPost> {
                 children: [
                   Center(
                     child: Image.asset(
-                      'assets/images/post.png', // Replace with your image path
+                      'assets/images/post.jpeg', // Replace with your image path
                       width: 100, // Set the desired width
                       height: 100, // Set the desired height
                     ),

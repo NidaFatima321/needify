@@ -69,6 +69,15 @@ class _FAQScreenState extends State<FAQScreen> {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
       stream: FirebaseFirestore.instance.collection('FAQ').snapshots(),
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+              child:
+              CircularProgressIndicator()); //return means the bottom code wont run
+        }
+        if (snapshot.data == null || snapshot.hasError) {
+          return const Center(child: Text("DATA NOT AVAILABLE"));
+        }
+
         return ListView.builder(
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
@@ -78,7 +87,6 @@ class _FAQScreenState extends State<FAQScreen> {
               separator: Container(
                 height: 5,
                 width: double.infinity,
-                color: Colors.blueGrey,
               ),
               ansStyle: const TextStyle(
                   color: Colors.red,
