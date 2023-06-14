@@ -156,7 +156,7 @@ class _DashboardState extends State<Dashboard> {
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => AddPost()));
             },
-            child: Image.asset("assets/images/PlusButton.png",width: 100,height: 100,)
+            child: Image.asset("assets/images/plusButton.png",width: 100,height: 100,)
         ),
       ),
     );

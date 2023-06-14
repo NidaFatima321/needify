@@ -16,7 +16,8 @@ class PostWidget extends StatefulWidget {
       {Key? key,
       required this.collectionReference,
       required this.category,
-      required this.docsnap, required this.posterData})
+      required this.docsnap,
+      required this.posterData})
       : super(key: key);
 
   @override
@@ -39,7 +40,7 @@ class _PostWidgetState extends State<PostWidget> {
         }
 
         return Container(
-          margin: const EdgeInsets.all(8),
+          margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
             borderRadius: BorderRadius.circular(20),
@@ -53,29 +54,56 @@ class _PostWidgetState extends State<PostWidget> {
 
               if (snapshot.data!.docs[index]["Category"] == widget.category &&
                   snapshot.data!.docs[index]["Status"] == "Available") {
-                mywidget.add(Row(
+                mywidget.add(
+                    Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                   
                     Image.network(
                       snapshot.data!.docs[index]["Images"][0],
-                      width: 200,
-                      height: 140,
+                      width: 150,
+                      height: 150,
                     ),
-                    const SizedBox(width: 3,),
+                    const SizedBox(
+                      width: 5,
+                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                            width:170,
-                            child: Text(snapshot.data!.docs[index]["Title"],style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20,fontFamily: "Times New Roman"),)),
-                        Text('(${snapshot.data!.docs[index]["Condition"]})',style: const TextStyle(fontSize: 18,color: Colors.lightBlue),),
-                        Text(snapshot.data!.docs[index]["Brand"],style: const TextStyle(fontSize: 18,fontFamily: 'Times New Roman'),),
-                        Text(snapshot.data!.docs[index]["Category"],style: const TextStyle(fontSize: 18),),
-                        Text("${snapshot.data!.docs[index]["Price"]}",style: const TextStyle(fontSize: 18,color: Colors.red),),
-                        SizedBox(
                             width: 170,
-                            child: Text("${snapshot.data!.docs[index]["Description"]}",style: TextStyle(color: Colors.grey,fontSize: 18),),),
+                            child: Text(
+                              snapshot.data!.docs[index]["Title"],
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  fontFamily: "Times New Roman"),
+                            )),
+                        Text(
+                          '(${snapshot.data!.docs[index]["Condition"]})',
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.lightBlue),
+                        ),
+                        Text(
+                          snapshot.data!.docs[index]["Brand"],
+                          style: const TextStyle(
+                              fontSize: 18, fontFamily: 'Times New Roman'),
+                        ),
+                        Text(
+                          snapshot.data!.docs[index]["Category"],
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          "${snapshot.data!.docs[index]["Price"]}",
+                          style:
+                              const TextStyle(fontSize: 18, color: Colors.red),
+                        ),
+                        SizedBox(
+                          width: 150,
+                          child: Text(
+                            "${snapshot.data!.docs[index]["Description"]}",
+                            style: TextStyle(color: Colors.grey, fontSize: 16),
+                          ),
+                        ),
                         Row(
                           children: [
                             ElevatedButton(
@@ -86,34 +114,60 @@ class _PostWidgetState extends State<PostWidget> {
                                       return SizedBox(
                                         height: 260,
                                         child: Center(
-                                          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             mainAxisSize: MainAxisSize.min,
                                             children: <Widget>[
                                               Padding(
-                                                padding: const EdgeInsets.all(8.0),
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
                                                 child: Text("Payment Methods"),
                                               ),
-
                                               Card(
                                                 child: ListTile(
-                                                  leading: Image.asset('assets/images/jazz.png',width: 50,),
+                                                  leading: Image.asset(
+                                                    'assets/images/jazz.png',
+                                                    width: 50,
+                                                  ),
                                                   title: Text("JazzCash"),
                                                   trailing: GestureDetector(
-                                                      onTap: (){
+                                                      onTap: () {
                                                         // Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentDecision(postsdata: snapshot.data!.docs[index],),));
                                                       },
-                                                      child: Icon(Icons.arrow_forward)),
+                                                      child: Icon(
+                                                          Icons.arrow_forward)),
                                                 ),
                                               ),
                                               Card(
                                                 child: ListTile(
-                                                  leading: Icon(Icons.delivery_dining,color: Colors.indigo,size: 30,),
-                                                  title: Text("Cash On Delivery"),
+                                                  leading: Icon(
+                                                    Icons.delivery_dining,
+                                                    color: Colors.indigo,
+                                                    size: 30,
+                                                  ),
+                                                  title:
+                                                      Text("Cash On Delivery"),
                                                   trailing: GestureDetector(
-                                                      onTap: (){
-                                                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentDecision(postsdata: snapshot.data!.docs[index],collectionReference: widget.collectionReference,docssnap:widget.docsnap),));
+                                                      onTap: () {
+                                                        Navigator.of(context)
+                                                            .push(
+                                                                MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              PaymentDecision(
+                                                                  postsdata: snapshot
+                                                                          .data!
+                                                                          .docs[
+                                                                      index],
+                                                                  collectionReference:
+                                                                      widget
+                                                                          .collectionReference,
+                                                                  docssnap: widget
+                                                                      .docsnap),
+                                                        ));
                                                       },
-                                                      child: Icon(Icons.arrow_forward)),
+                                                      child: Icon(
+                                                          Icons.arrow_forward)),
                                                 ),
                                               ),
                                             ],
@@ -155,45 +209,86 @@ class _PostWidgetState extends State<PostWidget> {
                                   //     .update({"Sold": soldItems});
                                 },
                                 child: Text("PURCHASE")),
-                            SizedBox(width: 30,),
+                            SizedBox(width:10),
                             Tooltip(
                                 message: 'Details',
                                 child: GestureDetector(
-                                    onTap: (){
-                                      showDialog(context: context, builder: (context) => DialogScreen(posterData:widget.posterData),);
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => DialogScreen(
+                                            posterData: widget.posterData),
+                                      );
                                     },
-                                    child: Icon(Icons.details,color: Colors.grey,)))
+                                    child: Icon(
+                                      Icons.details,
+                                      color: Colors.grey,
+                                    )))
                           ],
                         )
                       ],
                     )
                   ],
                 ));
-              }
-              else if(snapshot.data!.docs[index]["Category"] == widget.category &&
-                  snapshot.data!.docs[index]["Status"] == "Sold"){
+              } else if (snapshot.data!.docs[index]["Category"] ==
+                      widget.category &&
+                  snapshot.data!.docs[index]["Status"] == "Sold") {
                 mywidget.add(Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image.network(
-                      snapshot.data!.docs[index]["Images"][0],
-                      width: 200,
-                      height: 140,
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                Image.network(
+                snapshot.data!.docs[index]["Images"][0],
+                  width: 150,
+                  height: 150,
+                ),
+                    const SizedBox(
+                      width: 5,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(snapshot.data!.docs[index]["Title"]),
-                        Text(snapshot.data!.docs[index]["Brand"]),
-                        Text(snapshot.data!.docs[index]["Condition"]),
-                        Text(snapshot.data!.docs[index]["Category"]),
-                        Text("${snapshot.data!.docs[index]["Price"]}"),
-                        Text("${snapshot.data!.docs[index]["Description"]}"),
-                        Text("Sold",style: TextStyle(color: Colors.red),)
-                      ],
-                    )
+                        SizedBox(
+                            width: 170,
+                            child: Text(
+                              snapshot.data!.docs[index]["Title"],
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  fontFamily: "Times New Roman"),
+                            )),
+                        Text(
+                          '(${snapshot.data!.docs[index]["Condition"]})',
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.lightBlue),
+                        ),
+                        Text(
+                          snapshot.data!.docs[index]["Brand"],
+                          style: const TextStyle(
+                              fontSize: 18, fontFamily: 'Times New Roman'),
+                        ),
+                        Text(
+                          snapshot.data!.docs[index]["Category"],
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          "${snapshot.data!.docs[index]["Price"]}",
+                          style:
+                          const TextStyle(fontSize: 18),
+                        ),
+                        SizedBox(
+                          width: 150,
+                          child: Text(
+                            "${snapshot.data!.docs[index]["Description"]}",
+                            style: TextStyle(color: Colors.grey, fontSize: 16),
+                          ),
+                        ),
+                        Text("SOLD",style: TextStyle(color: Colors.red,fontSize: 17),)
+                ]),
                   ],
-                ));
+                )]));
               }
               return (Container(
                 child: Column(
