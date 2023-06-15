@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:needify/Views/Home.dart';
 import 'package:needify/Views/dashboard_needify.dart';
 import 'dart:core';
 
@@ -466,9 +467,13 @@ class _AddPostState extends State<AddPost> {
                       int postLength = posts.docs.length;
                       String userPost = "${login}_${postLength+1}";
                       widget._referencePostsReference.doc(userPost).set(dataToSend);
+                      List<dynamic> Categories=maindata!['Categories'];
+                      Categories.add(category);
+                      print(Categories);
+                      FirebaseFirestore.instance.collection('Users').doc(login).update({'Categories':Categories});
                       print("Adeed Successfully!");
                       print(userPost);
-                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dashboard()));
+                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
 
 
                     },
