@@ -92,17 +92,36 @@ class PaymentDecision extends StatelessWidget {
                                 print(maindata!.id);
                                 String logid =
                                     collectionReference.parent!.id;
-                                List<dynamic> soldItems = [];
-                                for (int i = 0;
-                                    i < docssnap["Sold"].length;
-                                    i++) {
-                                  soldItems.add(docssnap["Sold"][i]);
+                                // List<dynamic> soldItems = [];
+                                // for (int i = 0;
+                                //     i < docssnap["Sold"].length;
+                                //     i++) {
+                                //   soldItems.add(docssnap["Sold"][i]);
+                                // }
+                                // soldItems.add(postsdata.id);
+                                // FirebaseFirestore.instance
+                                //     .collection("Users")
+                                //     .doc(logid)
+                                //     .update({"Sold": soldItems});
+                                Map<String,dynamic> maps={};
+                                List<dynamic> items=[];
+                                for(int i=0;i<docssnap['Solds']['Items'].length;i++){
+                                  items.add(docssnap['Solds']['Items'][i]);
                                 }
-                                soldItems.add(postsdata.id);
+                                items.add(postsdata.id);
+                                List<dynamic> Timestamps=[];
+                                for(int i=0;i<docssnap['Solds']['Timestamps'].length;i++){
+                                  items.add(docssnap['Solds']['Timestamps'][i]);
+                                }
+                                Timestamps.add(DateTime.now());
+                                maps={"Items":items,"Timestamps":Timestamps};
                                 FirebaseFirestore.instance
                                     .collection("Users")
                                     .doc(logid)
-                                    .update({"Sold": soldItems});
+                                    .update({"Solds": maps});
+                                print(items);
+                                print(Timestamps);
+
                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => Checkout(),));
                               }, child: Text("Checkout")))
                     ],
