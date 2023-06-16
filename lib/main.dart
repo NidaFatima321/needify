@@ -18,8 +18,10 @@ void main() async{
     home: SplashScreen(),
   ));
 }
-
+num totalCount=0;
+num todayCount=0;
 String? login;
+num profitearned=0;
 DocumentSnapshot? maindata;
 
 

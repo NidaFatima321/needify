@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:needify/main.dart';
 
 class SoldWidget2 extends StatefulWidget {
   final CollectionReference collectionReference;
@@ -40,7 +41,27 @@ class _SoldWidget2State extends State<SoldWidget2> {
             itemBuilder: (context, index) {
               List<Widget> mywidget = [];
               if(snapshot.data!.docs[index].id==widget.id){
-              mywidget.add(Text(snapshot.data!.docs[index]['Title']));
+                todayCount+=1;
+                profitearned=profitearned+int.parse(snapshot.data!.docs[index]['Price'])*0.1;
+              mywidget.add(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.network(snapshot.data!.docs[index]['Image'],width:170,height: 80,),
+                      Column(
+                        children: [
+                          Text(snapshot.data!.docs[index]['Title'],style: TextStyle(fontWeight: FontWeight.bold),),
+                          Text(snapshot.data!.docs[index]['Category']),
+                          Text(snapshot.data!.docs[index]['Price'],style: TextStyle(color: Colors.red),),
+
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              );
               }
               return (Container(
                 child: Column(

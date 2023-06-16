@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:needify/Views/dates.dart';
+import 'package:needify/Views/earnings.dart';
 import 'package:needify/Views/sold2.dart';
 import 'package:needify/main.dart';
 
@@ -34,8 +35,12 @@ class _StatisticsState extends State<Statistics> {
             return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
+                todayCount=0;
+                totalCount=0;
+                profitearned=0;
                 List<Widget> mylist = [];
                 if (snapshot.data!.docs[index]['Solds']['Items'].length > 0) {
+                  totalCount = totalCount + snapshot.data!.docs[index]['Solds']['Items'].length;
                   for (int i = 0;
                       i < snapshot.data!.docs[index]['Solds']['Items'].length;
                       i++) {
@@ -62,7 +67,9 @@ class _StatisticsState extends State<Statistics> {
 
         ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: (){},
+        onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Earnings(),));
+        },
         label: Text('VIEW EARNINGS'),
       ),
     );
