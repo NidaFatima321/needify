@@ -12,6 +12,17 @@ class PaymentDecision extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFFC52348),
+        foregroundColor: Colors.black,
+        title: Text("Confirm Order"),
+        leading: InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.close)
+        ),
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return SafeArea(
@@ -114,7 +125,20 @@ class PaymentDecision extends StatelessWidget {
                                     .doc(logid)
                                     .update({"Sold": soldItems});
                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => Checkout(),));
-                              }, child: Text("Checkout")))
+                              }, child: Text("Checkout"),
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.resolveWith((states) {
+                                    if (states.contains(MaterialState.pressed)) {
+                                      return Colors.black26;
+                                    }
+                                    return Color(0xFF081857);
+                                  }
+                                  ),
+                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+              )
+          ),
+                          ))
                     ],
                   )
                 ],
