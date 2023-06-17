@@ -485,7 +485,15 @@ class _AddPostState extends State<AddPost> {
                       String userPost = "${login}_${postLength+1}";
                       widget._referencePostsReference.doc(userPost).set(dataToSend);
                       List<dynamic> Categories=maindata!['Categories'];
+                      int val=0;
+                      for(int i=0;i<Categories.length;i++){
+                        if(Categories[i]==category){
+                          val=1;
+                        }
+                      }
+                      if(val==0){
                       Categories.add(category);
+                      }
                       print(Categories);
                       FirebaseFirestore.instance.collection('Users').doc(login).update({'Categories':Categories});
                       print("Adeed Successfully!");

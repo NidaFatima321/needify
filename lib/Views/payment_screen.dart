@@ -111,7 +111,7 @@ class PaymentDecision extends StatelessWidget {
                                 items.add(postsdata.id);
                                 List<dynamic> Timestamps=[];
                                 for(int i=0;i<docssnap['Solds']['Timestamps'].length;i++){
-                                  items.add(docssnap['Solds']['Timestamps'][i]);
+                                  Timestamps.add(docssnap['Solds']['Timestamps'][i]);
                                 }
                                 Timestamps.add(DateTime.now());
                                 maps={"Items":items,"Timestamps":Timestamps};
