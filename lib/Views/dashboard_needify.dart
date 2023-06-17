@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:needify/Views/Home.dart';
 import 'package:needify/Views/category_widget.dart';
 import 'package:needify/Views/drawing_tools.dart';
 import 'package:needify/Views/Laptop.dart';
@@ -147,7 +148,6 @@ class _DashboardState extends State<Dashboard> {
                 },
               ),
             ),
-
           ],
         ),
       ),
