@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:needify/Views/queries.dart';
 import 'package:needify/Views/stats.dart';
 import 'package:needify/main.dart';
 
@@ -101,7 +102,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 trailing: GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Statistics(),
+                        builder: (context) => QueriesWidget(),
                       ));
                     },
                     child: Icon(Icons.arrow_forward)),
