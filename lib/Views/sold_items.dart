@@ -52,9 +52,10 @@ class _SoldItemsState extends State<SoldItems> {
                       mywidgets.add(SoldWidget(
                           collectionReference:
                               documentSnapshot.reference.collection("Posts")));
+
                       break;
                     }
-                    ;
+
                   }
                 }
                 return Container(

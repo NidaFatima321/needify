@@ -21,5 +21,6 @@ void main() async{
 
 String? login;
 DocumentSnapshot? maindata;
+String? postId;
 
 

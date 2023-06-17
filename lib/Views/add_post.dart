@@ -10,6 +10,7 @@ import 'dart:core';
 import 'package:needify/Views/my_purchases.dart';
 
 import '../main.dart';
+import 'Home.dart';
 class AddPost extends StatefulWidget {
 
 
@@ -125,6 +126,16 @@ class _AddPostState extends State<AddPost> {
     }
   }
 
+  //for inputting the unique post Id
+  int collectionLengthPlusOne = 0;
+  void listenToCollectionLength() {
+    widget._referencePostsReference.snapshots().listen((snapshot) {
+      setState(() {
+        collectionLengthPlusOne = snapshot.docs.length + 1;
+      });
+    });
+  }
+
 
   String valueChoose = "Drawing Tools";
   List<String> listItem = <String>[
@@ -146,7 +157,11 @@ class _AddPostState extends State<AddPost> {
 
   TextEditingController _jazzAccController = TextEditingController();
 
-
+  @override
+  void initState() {
+    super.initState();
+    listenToCollectionLength();
+  }
 
 
 
@@ -230,7 +245,7 @@ class _AddPostState extends State<AddPost> {
                       ),
                       // contentPadding: EdgeInsets.only(left:8.0,bottom:32.0,top:32.0),
                     ),
-                    maxLength: 50,
+                    maxLength: 100,
 
                   ),
                   SizedBox(height: 20),
@@ -434,6 +449,7 @@ class _AddPostState extends State<AddPost> {
                       String status = _statusController.text;
                       String category = valueChoose;
                       String jazzAccNo = _jazzAccController.text;
+                      String id = collectionLengthPlusOne.toString();
 
 
 
@@ -449,6 +465,7 @@ class _AddPostState extends State<AddPost> {
                         'Status' : status,
                         'Image' : imageUrl,
                         'Category' : category,
+                        'id': id,
                       };
                       //  Stream<QuerySnapshot<Object?>> stream = widget._referencePostsReference.snapshots();
                       //  Future<int> length = stream.length;
@@ -468,7 +485,28 @@ class _AddPostState extends State<AddPost> {
                       widget._referencePostsReference.doc(userPost).set(dataToSend);
                       print("Adeed Successfully!");
                       print(userPost);
-                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dashboard()));
+
+                      //Updating jazzAccount field of login user
+                      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+                          .collection('Users')
+                          .doc(login)
+                          .get();
+
+                      if (snapshot.exists) {
+                        var fieldValue = snapshot.get('JazzcashAccountNumber');
+                        if(fieldValue == ''){
+                          widget._userDocumentReference.update({"JazzcashAccountNumber": _jazzAccController.text});
+
+                        }
+                      } else {
+                        print('Document does not exist');
+                      }
+                      List<dynamic> Categories=maindata!['Categories'];
+                      Categories.add(category);
+                      print(Categories);
+                      FirebaseFirestore.instance.collection('Users').doc(login).update({'Categories':Categories});
+
+                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
 
 
                     },
