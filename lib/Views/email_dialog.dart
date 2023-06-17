@@ -58,7 +58,7 @@ class EmailDialog extends StatelessWidget {
                   children: [
                     Center(
                       child: Image.asset(
-                        'assets/images/email.png', // Replace with your image path
+                        'assets/images/email.jpeg', // Replace with your image path
                         width: 100, // Set the desired width
                         height: 100, // Set the desired height
                       ),

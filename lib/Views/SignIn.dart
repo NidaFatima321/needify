@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:needify/Views/admin_view.dart';
 import 'package:needify/main.dart';
 import '../reusable_widgets/reusable_widgets.dart';
 import '../utils/colors_utils.dart';
@@ -80,8 +81,15 @@ class _SignInScreenState extends State<SignInScreen> {
                           email: _emailTextController.text, password: _passwordTextController.text).then((value) {
 
                         login=_emailTextController.text;
+                        print(login);
+                        if(login=='admin1@gmail.com'){
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => AdminScreen()));
+                        }
+                        else{
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => HomeScreen()));
+                        }
                       }).onError((error, stackTrace) {
                         print("Error ${error.toString()}");
                       });

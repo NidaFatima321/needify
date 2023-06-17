@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:group_radio_button/group_radio_button.dart';
+import 'package:needify/Views/jazzcash_screen.dart';
 import 'package:needify/Views/payment_screen.dart';
 import 'package:needify/main.dart';
 
@@ -59,7 +60,7 @@ class _PostWidgetState extends State<PostWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Image.network(
-                      snapshot.data!.docs[index]["Images"][0],
+                      snapshot.data!.docs[index]["Image"],
                       width: 150,
                       height: 150,
                     ),
@@ -145,6 +146,16 @@ class _PostWidgetState extends State<PostWidget> {
                                                   trailing: GestureDetector(
                                                       onTap: () {
                                                         // Navigator.of(context).push(MaterialPageRoute(builder: (context) => PaymentDecision(postsdata: snapshot.data!.docs[index],),));
+                                                         Navigator.push(context, MaterialPageRoute(builder: (context) => JazzCashScreen(postsData: snapshot
+                                                             .data!
+                                                             .docs[
+                                                         index],
+                                                             collectionReference:
+                                                             widget
+                                                                 .collectionReference,
+                                                             docssnap: widget
+                                                                 .docsnap,productPrice:snapshot.data!.docs[index]["Price"], productName:snapshot.data!.docs[index]["Title"])));
+
                                                       },
                                                       child: Icon(
                                                           Icons.arrow_forward)),
@@ -251,7 +262,7 @@ class _PostWidgetState extends State<PostWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                 Image.network(
-                snapshot.data!.docs[index]["Images"][0],
+                snapshot.data!.docs[index]["Image"],
                   width: 150,
                   height: 150,
                 ),

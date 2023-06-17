@@ -40,7 +40,8 @@ class PaymentDecision extends StatelessWidget {
                   Card(
                     child: Row(
                       children: [
-                        Image.network(postsdata['Images'][0], width: 160),
+                        Image.network(postsdata['Image'], width: 160),
+                        SizedBox(width:5),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -69,18 +70,7 @@ class PaymentDecision extends StatelessWidget {
                     ),
                   ),
                   Expanded(child: SizedBox()),
-                  // SizedBox(
-                  //   width: constraints.maxWidth,
-                  //   child: ElevatedButton.icon(
-                  //     onPressed: () {
-                  //     },
-                  //     icon: Icon(Icons.cancel_outlined,color: Colors.green[100],),
-                  //     label: Text("Clear",style: TextStyle(color: Colors.green[100],fontWeight: FontWeight.bold),),
-                  //     style: ElevatedButton.styleFrom(
-                  //         backgroundColor: Colors.green),
-                  //
-                  //   ),
-                  // ),
+
                   Row(
                     children: [
                       Expanded(
@@ -113,17 +103,36 @@ class PaymentDecision extends StatelessWidget {
                                 print(maindata!.id);
                                 String logid =
                                     collectionReference.parent!.id;
-                                List<dynamic> soldItems = [];
-                                for (int i = 0;
-                                    i < docssnap["Sold"].length;
-                                    i++) {
-                                  soldItems.add(docssnap["Sold"][i]);
+                                // List<dynamic> soldItems = [];
+                                // for (int i = 0;
+                                //     i < docssnap["Sold"].length;
+                                //     i++) {
+                                //   soldItems.add(docssnap["Sold"][i]);
+                                // }
+                                // soldItems.add(postsdata.id);
+                                // FirebaseFirestore.instance
+                                //     .collection("Users")
+                                //     .doc(logid)
+                                //     .update({"Sold": soldItems});
+                                Map<String,dynamic> maps={};
+                                List<dynamic> items=[];
+                                for(int i=0;i<docssnap['Solds']['Items'].length;i++){
+                                  items.add(docssnap['Solds']['Items'][i]);
                                 }
-                                soldItems.add(postsdata.id);
+                                items.add(postsdata.id);
+                                List<dynamic> Timestamps=[];
+                                for(int i=0;i<docssnap['Solds']['Timestamps'].length;i++){
+                                  items.add(docssnap['Solds']['Timestamps'][i]);
+                                }
+                                Timestamps.add(DateTime.now());
+                                maps={"Items":items,"Timestamps":Timestamps};
                                 FirebaseFirestore.instance
                                     .collection("Users")
                                     .doc(logid)
-                                    .update({"Sold": soldItems});
+                                    .update({"Solds": maps});
+                                print(items);
+                                print(Timestamps);
+
                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => Checkout(),));
                               }, child: Text("Checkout"),
                               style: ButtonStyle(

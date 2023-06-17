@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:needify/Views/sold2.dart';
 import 'package:needify/Views/sold_widget.dart';
 import 'package:needify/main.dart';
 
@@ -32,22 +33,22 @@ class _SoldItemsState extends State<SoldItems> {
               itemBuilder: (context, index) {
 
                 List<String> ids = [];
-                for (int i = 0; i < maindata!["Sold"].length; i++) {
-                  ids.add(maindata!["Sold"][i]);
+                for (int i = 0; i < maindata!["Solds"]['Items'].length; i++) {
+                  ids.add(maindata!["Solds"]['Items'][i]);
                 }
                 print(ids);
                 DocumentSnapshot documentSnapshot = snapshot.data.docs[index];
 
                 List<Widget> mywidgets = [];
 
-                if (maindata!["Sold"].length <= 0 && count == 1) {
+                if (maindata!["Solds"]['Items'].length <= 0 && count == 1) {
                   count = count + 1;
                   mywidgets.add(Center(
                     child: Text("DATA NOT FOUND"),
                   ));
                 } else {
-                  for (int i = 0; i < maindata!["Sold"].length; i++) {
-                    if (maindata!["Sold"][i].substring(0, 5) ==
+                  for (int i = 0; i < maindata!["Solds"]['Items'].length; i++) {
+                    if (maindata!["Solds"]['Items'][i].substring(0, 5) ==
                         snapshot.data.docs[index].id.substring(0, 5)) {
                       mywidgets.add(SoldWidget(
                           collectionReference:

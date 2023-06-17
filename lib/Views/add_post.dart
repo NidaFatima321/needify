@@ -4,17 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:needify/Views/Home.dart';
 import 'package:needify/Views/dashboard_needify.dart';
 import 'dart:core';
 
 import 'package:needify/Views/my_purchases.dart';
+
+import '../main.dart';
 class AddPost extends StatefulWidget {
 
 
   AddPost({Key? key}) : super(key: key){
     //Getting the reference of root collection as Users
 
-    _userDocumentReference = FirebaseFirestore.instance.collection('Users').doc('zoyakashif234@gmail.com');
+    _userDocumentReference = FirebaseFirestore.instance.collection('Users').doc(login);
 
     //Get the collection reference for Posts collection of this document
     _referencePostsReference = _userDocumentReference.collection('Posts');
@@ -34,7 +37,8 @@ class AddPost extends StatefulWidget {
 
 class _AddPostState extends State<AddPost> {
 
-  File? pickedImage;
+  File? pickedImage ;
+  bool showTextFields = false;
 
   void imagePickerOption(){
     Get.bottomSheet(
@@ -123,9 +127,9 @@ class _AddPostState extends State<AddPost> {
   }
 
 
-  String valueChoose = "Tools";
+  String valueChoose = "Drawing Tools";
   List<String> listItem = <String>[
-    "Laptop", "Notes", "Tools", "Others"
+    "Laptop", "Notes", "Drawing Tools", "Others"
   ];
 
   TextEditingController _titleController = TextEditingController();
@@ -133,11 +137,16 @@ class _AddPostState extends State<AddPost> {
   TextEditingController _condController = TextEditingController();
   TextEditingController _brandController = TextEditingController();
   TextEditingController _priceController = TextEditingController();
+  TextEditingController _statusController = TextEditingController();
+
 
   String imageUrl = '';
 
   // late DocumentReference _userDocumentReference;
   //late CollectionReference _referencePostsReference;
+
+  TextEditingController _jazzAccController = TextEditingController();
+
 
 
 
@@ -163,7 +172,7 @@ class _AddPostState extends State<AddPost> {
                 children: [
                   Center(
                     child: Image.asset(
-                      'assets/images/post.png', // Replace with your image path
+                      'assets/images/post.jpeg', // Replace with your image path
                       width: 100, // Set the desired width
                       height: 100, // Set the desired height
                     ),
@@ -287,18 +296,31 @@ class _AddPostState extends State<AddPost> {
                     ),
 
                   ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _statusController,
+                    decoration: InputDecoration(
+                        hintText: " Status",
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 3,
+                              color: Color(0xFFC52348),
+                            )
+                        )
+                    ),
+
+                  ),
 
                   SizedBox(height: 20),
-                  InkWell(
+                  GestureDetector(
+
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         height: 200,
                         color: Colors.teal,
                         child: Stack(
                           children: [
-                            pickedImage != null ?
-                            Image.file(pickedImage!,width:MediaQuery.of(context).size.width,fit: BoxFit.cover,):
-                            Image.asset("assets/images/upload.jpg",
+                            pickedImage != null ? Image.file(pickedImage!,width:MediaQuery.of(context).size.width,fit: BoxFit.cover,): Image.asset("assets/images/upload.jpg",
                               fit: BoxFit.cover,
                               width: MediaQuery.of(context).size.width,
                               height: 200,
@@ -311,8 +333,9 @@ class _AddPostState extends State<AddPost> {
                           ],
                         ),
                       ),
-                      onTap:
-                      imagePickerOption
+                    onTap:
+                    imagePickerOption,
+
                     //   ImagePicker imagePicker = ImagePicker();
                     //   XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
                     //   //imagePicker.pickImage(source: ImageSource.gallery);
@@ -342,6 +365,66 @@ class _AddPostState extends State<AddPost> {
 
                   SizedBox(height: 20),
 
+                  Row(
+                    children: [
+                      Icon(Icons.info),
+                      Container(
+                        width: 300,
+                      //eight: 50,
+                        child: Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Do You Already input your Jazzcash Account Number for receiving payment, If No, Click on No Button!",
+                              //overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    width: 150,
+                    child: TextButton(
+                        onPressed: (){
+                          setState(() {
+                            showTextFields = !showTextFields;
+                          });
+
+                        },
+                        child: Text("No"),
+
+                    ),
+                  ),
+
+                  Visibility(
+                    visible: showTextFields,
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller:_jazzAccController,
+                          decoration: InputDecoration(
+                            hintText: "Enter Your Jazzash Account Number",
+                            labelText: 'Jazzcash Account Number',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        )
+                        // TextField(
+                        //   decoration: InputDecoration(
+                        //     labelText: 'Password',
+                        //   ),
+                        // ),
+                        // TextField(
+                        //   decoration: InputDecoration(
+                        //     labelText: 'Integrity Salt',
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ),
+
+
                   ElevatedButton(
                     onPressed: () async {
                       String title = _titleController.text;
@@ -349,7 +432,14 @@ class _AddPostState extends State<AddPost> {
                       String cond = _condController.text;
                       String brand = _brandController.text;
                       String price = _priceController.text;
+                      String status = _statusController.text;
                       String category = valueChoose;
+                      String jazzAccNo = _jazzAccController.text;
+
+
+
+                      // Add the new value at the 0th index
+                     // array.insert(0, 'New Value');
 
                       Map<String,String> dataToSend = {
                         'Title'  : title,
@@ -357,6 +447,7 @@ class _AddPostState extends State<AddPost> {
                         'Condition' : cond,
                         'Brand' : brand,
                         'Price' : price,
+                        'Status' : status,
                         'Image' : imageUrl,
                         'Category' : category,
                       };
@@ -367,10 +458,24 @@ class _AddPostState extends State<AddPost> {
                       // final int postLength = await widget._referencePostsReference.snapshots().length;
                       // print(postLength);
 
+                      // QuerySnapshot posts = await widget._referencePostsReference.get();
+                      // int postLength = posts.docs.length;
+                      // widget._referencePostsReference.doc('zoyakashif23@gmail.com_${postLength +1 }').set(dataToSend);
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dashboard()));
+
                       QuerySnapshot posts = await widget._referencePostsReference.get();
                       int postLength = posts.docs.length;
-                      widget._referencePostsReference.doc('zoyakashif23@gmail.com_${postLength +1 }').set(dataToSend);
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dashboard()));
+                      String userPost = "${login}_${postLength+1}";
+                      widget._referencePostsReference.doc(userPost).set(dataToSend);
+                      List<dynamic> Categories=maindata!['Categories'];
+                      Categories.add(category);
+                      print(Categories);
+                      FirebaseFirestore.instance.collection('Users').doc(login).update({'Categories':Categories});
+                      print("Adeed Successfully!");
+                      print(userPost);
+                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+
+
                     },
                     child: Text("Post", style: TextStyle(fontSize: 22),),
                     style: ButtonStyle(

@@ -50,20 +50,49 @@ class _SoldWidgetState extends State<SoldWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Image.network(
-                        snapshot.data!.docs[index]["Images"][0],
-                        width: 200,
+                        snapshot.data!.docs[index]["Image"],
+                        width: 150,
                         height: 140,
                       ),
+                      SizedBox(width:5),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(snapshot.data!.docs[index]["Title"]),
-                          Text(snapshot.data!.docs[index]["Brand"]),
-                          Text(snapshot.data!.docs[index]["Condition"]),
-                          Text(snapshot.data!.docs[index]["Category"]),
-                          Text("${snapshot.data!.docs[index]["Price"]}"),
-                          Text("${snapshot.data!.docs[index]["Description"]}"),
-
+                          SizedBox(
+                              width: 170,
+                              child: Text(
+                                snapshot.data!.docs[index]["Title"],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    fontFamily: "Times New Roman"),
+                              )),
+                          Text(
+                            '(${snapshot.data!.docs[index]["Condition"]})',
+                            style: const TextStyle(
+                                fontSize: 18, color: Colors.lightBlue),
+                          ),
+                          Text("Brand: "+
+                              snapshot.data!.docs[index]["Brand"],
+                            style: const TextStyle(
+                                fontSize: 18, fontFamily: 'Times New Roman'),
+                          ),
+                          Text(
+                            snapshot.data!.docs[index]["Category"],
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          Text("Price: "+
+                              "${snapshot.data!.docs[index]["Price"]}",
+                            style:
+                            const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: 150,
+                            child: Text(
+                              "${snapshot.data!.docs[index]["Description"]}",
+                              style: TextStyle(color: Colors.grey, fontSize: 16),
+                            ),
+                          ),
                         ],
                       )
                     ],
