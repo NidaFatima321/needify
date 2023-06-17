@@ -507,12 +507,12 @@ class _AddPostState extends State<AddPost> {
                       } else {
                         print('Document does not exist');
                       }
-                      List<dynamic> Categories=maindata!['Categories'];
-                      Categories.add(category);
-                      print(Categories);
-                      FirebaseFirestore.instance.collection('Users').doc(login).update({'Categories':Categories});
-
-                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+                      // List<dynamic> Categories=maindata!['Categories'];
+                      // Categories.add(category);
+                      // print(Categories);
+                      // FirebaseFirestore.instance.collection('Users').doc(login).update({'Categories':Categories});
+                      //
+                      //  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
 
 
                     },
