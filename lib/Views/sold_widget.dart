@@ -44,8 +44,8 @@ class _SoldWidgetState extends State<SoldWidget> {
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
               List<Widget> mywidget = [];
-              for(int i=0;i<maindata!["Sold"].length;i++){
-                if (snapshot.data!.docs[index].id == maindata!["Sold"][i]) {
+              for(int i=0;i<maindata!["Solds"]['Items'].length;i++){
+                if (snapshot.data!.docs[index].id == maindata!["Solds"]['Items'][i]) {
                   mywidget.add(Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

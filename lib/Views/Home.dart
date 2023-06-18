@@ -6,6 +6,8 @@ import 'package:needify/Views/faq.dart';
 // import 'package:needify/Views/LogOut.dart';
 import 'package:needify/Views/my_purchases.dart';
 import 'package:needify/Views/sold_items.dart';
+import 'package:needify/Views/my_posts.dart';
+import 'package:needify/Views/my_wallet.dart';
 import '../reusable_widgets/UserImage.dart';
 import '../reusable_widgets/round_image.dart';
 import 'SignIn.dart';
@@ -28,12 +30,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if(currentPage == DrawerSelections.Dashboard){
       container = Dashboard();
-    } else if (currentPage == DrawerSelections.MyPurchases){
+    }else if (currentPage == DrawerSelections.MyPosts){
+      container = MyPosts();
+    }
+    else if (currentPage == DrawerSelections.MyPurchases){
       container = LoadData();
     } else if (currentPage == DrawerSelections.SoldItems){
       container = SoldItems();
-    } else if (currentPage == DrawerSelections.FAQ){
+    } else if (currentPage == DrawerSelections.FAQ) {
       container = FAQFINAL();
+    }else if (currentPage == DrawerSelections.MyWallet){
+      container = MyWallet();
     } else if (currentPage == DrawerSelections.Logout){
       FirebaseAuth.instance.signOut().then((value) {
         print("Signed Out!");
@@ -133,13 +140,17 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           menuItem(1, "Dashboard", Icons.dashboard_outlined,
               currentPage == DrawerSelections.Dashboard? true : false),
-          menuItem(2, "My Purchases", Icons.shopping_bag_outlined,
+          menuItem(2, "My Posts", Icons.ad_units_outlined,
+              currentPage == DrawerSelections.Dashboard? true : false),
+          menuItem(3, "My Purchases", Icons.shopping_bag_outlined,
               currentPage == DrawerSelections.MyPurchases? true : false),
-          menuItem(3, "Sold Items", Icons.sell_outlined,
+          menuItem(4, "Sold Items", Icons.sell_outlined,
               currentPage == DrawerSelections.SoldItems? true : false),
-          menuItem(4, "FAQ", Icons.question_answer,
+          menuItem(5, "FAQ", Icons.question_answer,
               currentPage == DrawerSelections.FAQ? true : false),
-          menuItem(5, "Logout", Icons.logout_outlined,
+          menuItem(6, "My Wallet", Icons.account_balance_wallet_outlined,
+              currentPage == DrawerSelections.MyWallet? true : false),
+          menuItem(7, "Logout", Icons.logout_outlined,
               currentPage == DrawerSelections.Logout? true : false),
         ],
       ),
@@ -156,12 +167,18 @@ class _HomeScreenState extends State<HomeScreen> {
             if (id == 1) {
               currentPage = DrawerSelections.Dashboard;
             } else if (id == 2) {
-              currentPage = DrawerSelections.MyPurchases;
+              currentPage = DrawerSelections.MyPosts;
             } else if (id == 3) {
-              currentPage = DrawerSelections.SoldItems;
+              currentPage = DrawerSelections.MyPurchases;
+
             } else if (id == 4) {
+              currentPage = DrawerSelections.SoldItems;
+            } else if (id == 5) {
               currentPage = DrawerSelections.FAQ;
-            }else if (id == 5) {
+            } else if (id == 6) {
+              currentPage = DrawerSelections.MyWallet;
+
+            }else if (id == 7) {
               currentPage = DrawerSelections.Logout;
             }
           });
@@ -197,9 +214,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
 enum DrawerSelections {
   Dashboard,
+  MyPosts,
   MyPurchases,
   SoldItems,
   Logout,
-  FAQ
+  FAQ,
+  MyWallet
 }
 

@@ -23,5 +23,6 @@ num todayCount=0;
 String? login;
 num profitearned=0;
 DocumentSnapshot? maindata;
+String? postId;
 
 

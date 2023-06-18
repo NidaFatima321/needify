@@ -55,7 +55,6 @@ class _SoldItemsState extends State<SoldItems> {
                               documentSnapshot.reference.collection("Posts")));
                       break;
                     }
-                    ;
                   }
                 }
                 return Container(
