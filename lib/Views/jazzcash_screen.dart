@@ -118,11 +118,12 @@ class _JazzCashScreenState extends State<JazzCashScreen> {
           items.add(widget.docssnap['Solds']['Items'][i]);
         }
         items.add(widget.postsData.id);
+
         List<dynamic> Timestamps = [];
         for (int i = 0;
             i < widget.docssnap['Solds']['Timestamps'].length;
             i++) {
-          items.add(widget.docssnap['Solds']['Timestamps'][i]);
+          Timestamps.add(widget.docssnap['Solds']['Timestamps'][i]);
         }
         Timestamps.add(DateTime.now());
         maps = {"Items": items, "Timestamps": Timestamps};
