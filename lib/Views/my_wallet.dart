@@ -23,7 +23,7 @@ class _MyWalletState extends State<MyWallet> {
 
 
 
-  var totalWalletAmount = 0;
+  var totalWalletAmount = 0.00;
   // var soldItems = [];
   // var soldDateTime = [];
 
@@ -42,7 +42,8 @@ class _MyWalletState extends State<MyWallet> {
       soldDateTime.add(timestamps[i].toDate());
     }
     // Calculate the totalWalletAmount
-    int totalAmount = 0;
+    var totalAmount = 0.00;
+    var actualTotalAmount = 0.00;
     for (int i = 0; i < soldItems.length; i++) {
       String documentId = soldItems[i];
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -50,12 +51,14 @@ class _MyWalletState extends State<MyWallet> {
           .get();
       if (snapshot.exists) {
         Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-        totalAmount = totalAmount + int.parse(data["Price"]) + int.parse(data["Withdrawn"]);
+        totalAmount = totalAmount + double.parse(data["Price"]) + double.parse(data["Withdrawn"]);
+        actualTotalAmount = totalAmount * 0.1;
+        totalAmount -= actualTotalAmount;
       }
     }
 
     setState(() {
-      totalWalletAmount = totalAmount;
+      totalWalletAmount = totalAmount  ;
     });
 
     return SoldData(soldItems, soldDateTime);
@@ -77,7 +80,7 @@ class _MyWalletState extends State<MyWallet> {
 
     }
     // Calculate the totalWalletAmount
-    int totalAmount = 0;
+    var totalAmountWitdhrawn = 0.00;
     for (int i = 0; i < soldItems.length; i++) {
       String documentId = soldItems[i];
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -90,8 +93,8 @@ class _MyWalletState extends State<MyWallet> {
           'Withdrawn': "-${data["Price"]}",
         });
 
-       totalAmount += int.parse(data["Withdrawn"]);
-       totalAmount = 0;
+        totalAmountWitdhrawn += double.parse(data["Withdrawn"]);
+       totalAmountWitdhrawn = 0.00 ;
        for(int i =0;i< soldItems.length; i++) {
            Buyingtimestamps.add(
                DateFormat('dd-M-yy HH:mm').format(DateTime.now()).toString());
@@ -106,7 +109,7 @@ class _MyWalletState extends State<MyWallet> {
     }
 
     setState(() {
-      totalWalletAmount = totalAmount;
+      totalWalletAmount = totalAmountWitdhrawn;
     });
 
     return SoldData(soldItems, soldDateTime);
@@ -131,7 +134,7 @@ class _MyWalletState extends State<MyWallet> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text("Your Money has been transferred"),
-                Text("tp your Jazzcash Account"),
+                Text("to your Jazzcash Account"),
                 Text("Soon you'll get the confirmation msg."),
                 Icon(Icons.sms_rounded),
               ],
@@ -178,208 +181,195 @@ class _MyWalletState extends State<MyWallet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("My Wallet"),
-          backgroundColor: Color(0xFFC52348),
-          foregroundColor: Colors.black,
-          elevation: 0,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                      height: 200,
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.white24,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children:[
-                        Text("Your Wallet Amount",style: TextStyle(fontSize: 15.0),),
-                        SizedBox(height: 20.0,),
-                        Text("Rs. $totalWalletAmount",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30.0),),
+
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
+                        color: Colors.white24,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children:[
+                          Text("Your Wallet Amount",style: TextStyle(fontSize: 15.0),),
                           SizedBox(height: 20.0,),
-                        ElevatedButton(
-                            onPressed: (){
-                               showAlertDialog(context);
-                            },
-                            child: Text("Click here to Withdraw the amount")),
-                    ]
+                          Text("Rs. $totalWalletAmount",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30.0),),
+                            SizedBox(height: 20.0,),
+                          ElevatedButton(
+                              onPressed: (){
+                                 showAlertDialog(context);
+                              },
+                              child: Text("Click here to Withdraw the amount")),
+                      ]
+                        ),
                       ),
-                    ),
 
-                SizedBox(height: 0.0,),
-                Text("Your Transactions",style:TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
-                SizedBox(height: 20.0,),
-                SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Container(
-                    //color:Colors.cyan,
-                    height: MediaQuery.of(context).size.height - 200,
-                    child: FutureBuilder<SoldData>(
-                        future: fetchDataFuture,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator());
-                          }
+                  SizedBox(height: 0.0,),
+                  Text("Your Transactions",style:TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
+                  SizedBox(height: 20.0,),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Container(
+                      //color:Colors.cyan,
+                      height: MediaQuery.of(context).size.height - 200,
+                      child: FutureBuilder<SoldData>(
+                          future: fetchDataFuture,
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            }
 
-                          if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          }
+                            if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            }
 
-                          final soldData = snapshot.data;
-                          if (soldData == null || soldData.soldItems.isEmpty) {
-                            return Padding(
-                              padding: const EdgeInsets.all(48.0),
-                              child: Center(
-                                child: Text(
-                                  "You have no transactions yet!",
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            );
-                          }
-
-
-                          // Build your ListView using soldItems
-
-
-                        return ListView.builder(
-                          itemCount: soldData.soldItems.length == 0 ? 1 : soldData.soldItems.length ,
-                          itemBuilder: (context, index) {
-                            print("soldItems length: ${soldData.soldItems.length}");
-                            if (soldData.soldItems.length == 0) {
+                            final soldData = snapshot.data;
+                            if (soldData == null || soldData.soldItems.isEmpty) {
                               return Padding(
                                 padding: const EdgeInsets.all(48.0),
                                 child: Center(
-                                  child: Text("You have no transactions yet!",
-                                    style: TextStyle(fontSize: 20),),),
+                                  child: Text(
+                                    "You have no transactions yet!",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ),
                               );
                             }
-                            else {
-                              String documentId = soldData.soldItems[index];
-                              DateTime dateTime = soldData.soldDateTime[index];
-                              String formattedDateTime = DateFormat(
-                                  'dd-M-yy HH:mm')
-                                  .format(dateTime);
 
-                              //String userId = finalpurchDocids[index];
 
-                              return StreamBuilder<DocumentSnapshot>(
-                                stream: FirebaseFirestore.instance
-                                    .doc('/Users/$login/Posts/$documentId')
-                                    .snapshots(),
-                                builder:
-                                    (BuildContext context,
-                                    AsyncSnapshot<DocumentSnapshot> snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Center(
-                                        child: CircularProgressIndicator());
-                                  }
+                            // Build your ListView using soldItems
 
-                                  if (snapshot.hasError) {
-                                    return Text('Error: ${snapshot.error}');
-                                  }
 
-                                  if (!snapshot.hasData || !snapshot.data!.exists) {
-                                    return Text('No data available');
-                                  }
-
-                                  // Retrieve the subcollection document data
-                                  Map<String, dynamic> data =
-                                  snapshot.data!.data() as Map<String, dynamic>;
-
-                                  // int price = int.parse(data["Price"]);
-
-                                  // Update the totalWalletAmount
-                                  // updateTotalWalletAmount(price);
-                                  if(data.containsKey('Withdrawn') && data['Withdrawn'] != "-0"){
-                                    return Column(
-                                      children: [
-                                        ListTile(
-                                            title: Row(
-                                              children: [
-                                                Text("Post#${data['id'].toString()}",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight: FontWeight.bold),),
-                                                SizedBox(width: 5.0),
-                                                Text(data['WithdrawnTime'], style: TextStyle(color: Colors.blue,),),
-                                              ],
-                                            ),
-                                            trailing: Text(
-                                                "Rs ${data["Withdrawn"].toString()}",
-                                                style: TextStyle(color: Colors.red,
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold)),
-                                            subtitle: Text("Withdrawn from your Wallet"),
-                                            leading: Icon(Icons.wallet)
-                                        ),
-                                        ListTile(
-                                            title: Row(
-                                              children: [
-                                                Text("Post#${data['id'].toString()}",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight: FontWeight.bold),),
-                                                SizedBox(width: 5.0),
-                                                Text(formattedDateTime, style: TextStyle(color: Colors.blue,),),
-                                              ],
-                                            ),
-                                            trailing: Text(
-                                                "Rs ${data["Price"].toString()}",
-                                                style: TextStyle(color: Colors.green,
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold)),
-                                            subtitle: Text("Added to your Wallet"),
-                                            leading: Icon(Icons.wallet)
-                                        ),
-                                      ],
-                                    );
-                                  }
-                                if(soldData.soldItems.length > 3) {
-                                  return Container(
-                                    height: 100,
-                                    color: Colors.pink,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .width,
-                                  );
-                                }
-                                return ListTile(
-                                    title: Row(
-                                      children: [
-                                        Text("Post#${data['id'].toString()}",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),),
-                                        SizedBox(width: 5.0),
-                                        Text(formattedDateTime, style: TextStyle(color: Colors.blue,),),
-                                      ],
-                                    ),
-                                    trailing: Text(
-                                        "Rs ${data["Price"].toString()}",
-                                        style: TextStyle(color: Colors.green,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold)),
-                                    subtitle: Text("Added to your Wallet"),
-                                    leading: Icon(Icons.wallet)
+                          return ListView.builder(
+                            itemCount: soldData.soldItems.length == 0 ? 1 : soldData.soldItems.length ,
+                            itemBuilder: (context, index) {
+                              print("soldItems length: ${soldData.soldItems.length}");
+                              if (soldData.soldItems.length == 0) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(48.0),
+                                  child: Center(
+                                    child: Text("You have no transactions yet!",
+                                      style: TextStyle(fontSize: 20),),),
                                 );
-                                },
-                              );
-                            }
-                          },
-                        );
-                      }
+                              }
+                              else {
+                                String documentId = soldData.soldItems[index];
+                                DateTime dateTime = soldData.soldDateTime[index];
+                                String formattedDateTime = DateFormat(
+                                    'dd-M-yy HH:mm')
+                                    .format(dateTime);
+
+                                //String userId = finalpurchDocids[index];
+
+                                return StreamBuilder<DocumentSnapshot>(
+                                  stream: FirebaseFirestore.instance
+                                      .doc('/Users/$login/Posts/$documentId')
+                                      .snapshots(),
+                                  builder:
+                                      (BuildContext context,
+                                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Center(
+                                          child: CircularProgressIndicator());
+                                    }
+
+                                    if (snapshot.hasError) {
+                                      return Text('Error: ${snapshot.error}');
+                                    }
+
+                                    if (!snapshot.hasData || !snapshot.data!.exists) {
+                                      return Text('No data available');
+                                    }
+
+                                    // Retrieve the subcollection document data
+                                    Map<String, dynamic> data =
+                                    snapshot.data!.data() as Map<String, dynamic>;
+
+                                    // int price = int.parse(data["Price"]);
+
+                                    // Update the totalWalletAmount
+                                    // updateTotalWalletAmount(price);
+                                    if(data.containsKey('Withdrawn') && data['Withdrawn'] != "-0"){
+                                      return Column(
+                                        children: [
+                                          ListTile(
+                                              title: Row(
+                                                children: [
+                                                  Text("Post#${data['id'].toString()}",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight: FontWeight.bold),),
+                                                  SizedBox(width: 5.0),
+                                                  Text(data['WithdrawnTime'], style: TextStyle(color: Colors.blue,),),
+                                                ],
+                                              ),
+                                              trailing: Text(
+                                                  "Rs ${data["Withdrawn"].toString()}",
+                                                  style: TextStyle(color: Colors.red,
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.bold)),
+                                              subtitle: Text("Withdrawn from your Wallet"),
+                                              leading: Icon(Icons.wallet)
+                                          ),
+                                          ListTile(
+                                              title: Row(
+                                                children: [
+                                                  Text("Post#${data['id'].toString()}",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight: FontWeight.bold),),
+                                                  SizedBox(width: 5.0),
+                                                  Text(formattedDateTime, style: TextStyle(color: Colors.blue,),),
+                                                ],
+                                              ),
+                                              trailing: Text(
+                                                  "Rs ${data["Price"].toString()}",
+                                                  style: TextStyle(color: Colors.green,
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.bold)),
+                                              subtitle: Text("Added to your Wallet"),
+                                              leading: Icon(Icons.wallet)
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                  return ListTile(
+                                      title: Row(
+                                        children: [
+                                          Text("Post#${data['id'].toString()}",
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),),
+                                          SizedBox(width: 5.0),
+                                          Text(formattedDateTime, style: TextStyle(color: Colors.blue,),),
+                                        ],
+                                      ),
+                                      trailing: Text(
+                                          "Rs ${data["Price"].toString()}",
+                                          style: TextStyle(color: Colors.green,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold)),
+                                      subtitle: Text("Added to your Wallet"),
+                                      leading: Icon(Icons.wallet)
+                                  );
+                                  },
+                                );
+                              }
+                            },
+                          );
+                        }
+                      ),
                     ),
                   ),
-                ),
 
-         ]
-        ),
+           ]
+          ),
+            ),
           ),
         )
     );
