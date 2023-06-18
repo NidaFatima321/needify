@@ -39,13 +39,13 @@ class _MyPostsState extends State<MyPosts> {
                             title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Post# ${index + 1}'),
+                              Text('Post# ${index + 1}',style: TextStyle(fontWeight: FontWeight.bold),),
                               Text(userPosts["Title"].toString()),
                             ],
                           ),
                             //Text(userPosts["Title"].toString()),
-                            trailing: Text(userPosts["Status"].toString()),
-                            subtitle: Text("Price:${userPosts["Price"]}".toString()),
+                            trailing: Text(userPosts["Status"].toString(),style: TextStyle(fontWeight: FontWeight.bold,color:Colors.blue),),
+                            subtitle: Text("Price:${userPosts["Price"]}".toString(),style: TextStyle(fontWeight: FontWeight.bold,color:Colors.green),),
                             leading:
                                 Container(
                                   height: 70,

@@ -43,6 +43,7 @@ class _LoadDataState extends State<LoadData> {
     setState(() {
 
     });
+    print(finalpurchDocids);
   }
 
 
@@ -65,6 +66,7 @@ class _LoadDataState extends State<LoadData> {
           else {
             String documentId = purc[index];
             String userId = finalpurchDocids[index];
+            print(userId);
 
             return StreamBuilder<DocumentSnapshot>(
               stream: FirebaseFirestore.instance
@@ -92,12 +94,12 @@ class _LoadDataState extends State<LoadData> {
                 return ListTile(
                   title: Text(data["Title"].toString(), style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
                   trailing: Text(data["Brand"].toString()),
-                  subtitle: Text("Price:${data["Price"]}".toString()),
+                  subtitle: Text("Price:${data["Price"]}".toString(),style: TextStyle(fontWeight: FontWeight.bold,color: Colors.green),),
                   leading: Container(
-                    height: 50,
-                    width: 50,
-                    child: data.containsKey('Images') ? Image.network(
-                        data["Images"][0].toString())
+                    height: 250,
+                    width: 100,
+                    child: data.containsKey('Image') ? Image.network(
+                        data["Image"].toString(),fit: BoxFit.contain,)
                         : Container(),
                     // Other widget customization as needed
                   ),

@@ -7,6 +7,7 @@ import 'package:needify/Views/SignUp.dart';
 import 'package:needify/Views/dashboard_needify.dart';
 import 'package:needify/Views/email_dialog.dart';
 import 'package:needify/Views/my_purchases.dart';
+import 'package:needify/Views/my_wallet.dart';
 import 'Views/add_post.dart';
 import 'Views/splash_screen.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ void main() async{
 }
 num totalCount=0;
 num todayCount=0;
-String? login;
+String? login ;
 num profitearned=0;
 DocumentSnapshot? maindata;
 String? postId;
