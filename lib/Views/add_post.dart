@@ -451,6 +451,8 @@ class _AddPostState extends State<AddPost> {
                       String category = valueChoose;
                       String jazzAccNo = _jazzAccController.text;
                       String id = collectionLengthPlusOne.toString();
+                      String withdrawn = "-0";
+                      String withdrawnTime = "";
 
 
 
@@ -467,6 +469,8 @@ class _AddPostState extends State<AddPost> {
                         'Image' : imageUrl,
                         'Category' : category,
                         'id': id,
+                        'Withdrawn' : withdrawn,
+                        'WithdrawnTime' : withdrawnTime,
                       };
                       //  Stream<QuerySnapshot<Object?>> stream = widget._referencePostsReference.snapshots();
                       //  Future<int> length = stream.length;
@@ -546,3 +550,5 @@ class _AddPostState extends State<AddPost> {
 
   }
 }
+
+
