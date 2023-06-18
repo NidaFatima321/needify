@@ -13,12 +13,6 @@ class _MyPostsState extends State<MyPosts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("My Posts"),
-        backgroundColor: Color(0xFFC52348),
-        foregroundColor: Colors.black,
-        elevation: 0,
-      ),
       body: SafeArea(
         child: Container(
           child: StreamBuilder<QuerySnapshot>(

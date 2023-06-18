@@ -48,14 +48,8 @@ class _MyWalletState extends State<MyWallet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("My Wallet"),
-          backgroundColor: Color(0xFFC52348),
-          foregroundColor: Colors.black,
-          elevation: 0,
-        ),
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 160, 16, 16),
           child: Column(
             children: [
               Container(
@@ -65,11 +59,21 @@ class _MyWalletState extends State<MyWallet> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:[
-                  Text("Your Wallet Amount"),
+                  Text("Your Wallet Amount",
+                    style: TextStyle(fontSize: 18),),
                   SizedBox(height: 20.0,),
                   Text("Rs. 0.00",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),),
                     SizedBox(height: 30.0,),
-                  ElevatedButton(onPressed: (){}, child: Text("Click here to Withdraw the amount")),
+                  ElevatedButton(onPressed: (){}, child: Text("Click here to Withdraw the amount"),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith((states) {
+                        if (states.contains(MaterialState.pressed)) {
+                          return Colors.black26;
+                        }
+                        return Color(0xFF0D80F3);
+                      }),
+                    ),
+                  ),
               ]
                 ),
               ),
