@@ -11,14 +11,14 @@ class Earnings extends StatefulWidget {
 
 class _EarningsState extends State<Earnings> {
   Map<String, double> dataMap = {
-    "Today's Earnings": todayCount.toDouble(),
-    "Past Earnings": totalCount.toDouble()-todayCount.toDouble()
+    "Today's Earnings": current=="Current"?todayCount.toDouble():ctodayCount.toDouble(),
+    "Past Earnings": current=="Current"?totalCount.toDouble()-todayCount.toDouble():ctotalCount.toDouble()-ctodayCount.toDouble()
   };
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Today's Earnings"),
+        title: current=='Current'?Text("Today's Earnings"):Text('Total Earnings'  ),
       ),
       body: SafeArea(
           child: Column(children: [

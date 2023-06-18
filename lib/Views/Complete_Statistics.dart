@@ -22,6 +22,10 @@ class _CompleteStatsWidgetState extends State<CompleteStatsWidget> {
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance.collection('Users').snapshots(),
         builder: (context, snapshot) {
+          current='complete';
+          ctotalCount = 0;
+          ctodayCount = 0;
+          cprofitearned = 0;
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
                 child:
@@ -34,16 +38,14 @@ class _CompleteStatsWidgetState extends State<CompleteStatsWidget> {
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
-              totalCount = 0;
-              todayCount = 0;
-              profitearned = 0;
+
               List<Widget> mylist = [];
               if (snapshot.data!.docs[index]['Solds']['Items'].length > 0) {
+                ctotalCount = ctotalCount +
+                    snapshot.data!.docs[index]['Solds']['Items'].length;
                 for (int i = 0;
                     i < snapshot.data!.docs[index]['Solds']['Items'].length;
                     i++) {
-                  totalCount = totalCount +
-                      snapshot.data!.docs[index]['Solds']['Items'].length;
                   if (snapshot.data!.docs[index]['Solds']['Timestamps'][i]
                           .toDate()
                           .day ==
@@ -51,7 +53,7 @@ class _CompleteStatsWidgetState extends State<CompleteStatsWidget> {
                     print(snapshot.data!.docs[index]['Solds']['Timestamps'][i]
                         .toDate()
                         .day);
-                    todayCount = todayCount + 1;
+                    ctodayCount = ctodayCount + 1;
                   }
                   DocumentSnapshot documentSnapshot =
                       snapshot.data!.docs[index];

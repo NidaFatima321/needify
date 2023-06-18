@@ -24,6 +24,7 @@ class _StatisticsState extends State<Statistics> {
         body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
           stream: FirebaseFirestore.instance.collection('Users').snapshots(),
           builder: (context, snapshot) {
+            current="Current";
             todayCount=0;
             totalCount=0;
             profitearned=0;

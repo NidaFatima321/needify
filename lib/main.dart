@@ -20,9 +20,13 @@ void main() async{
   ));
 }
 num totalCount=0;
+String? current;
 num todayCount=0;
-String? login ;
 num profitearned=0;
+num ctotalCount=0;
+num ctodayCount=0;
+num cprofitearned=0;
+String? login ;
 DocumentSnapshot? maindata;
 String? postId;
 
