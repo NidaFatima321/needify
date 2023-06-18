@@ -27,128 +27,130 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       //backgroundColor: Color(0xFF202491),
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 120, 20, 20),
-        child: Column(
-          children: [
-            // CarouselSlider(
-            //     items: [
-            //       Container(
-            //         child: Image.network(
-            //             'https://png.pngtree.com/png-vector/20191026/ourmid/pngtree-laptop-icon-png-image_1871608.jpg'),
-            //       ),  Container(
-            //         child: Image.network(
-            //             'https://cdni.iconscout.com/illustration/premium/thumb/technical-drawing-6624320-5619278.png'),
-            //       ),
-            //     ],
-            //     options: CarouselOptions(
-            //       height: 170,
-            //       aspectRatio: 16 / 9,
-            //       viewportFraction: 0.5,
-            //       initialPage: 0,
-            //       enableInfiniteScroll: true,
-            //       reverse: false,
-            //       autoPlay: true,
-            //       autoPlayInterval: Duration(seconds: 3),
-            //       autoPlayAnimationDuration: Duration(milliseconds: 800),
-            //       autoPlayCurve: Curves.fastOutSlowIn,
-            //       enlargeCenterPage: true,
-            //       enlargeFactor: 0.4,
-            //       scrollDirection: Axis.horizontal,
-            //     )
-            // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              // CarouselSlider(
+              //     items: [
+              //       Container(
+              //         child: Image.network(
+              //             'https://png.pngtree.com/png-vector/20191026/ourmid/pngtree-laptop-icon-png-image_1871608.jpg'),
+              //       ),  Container(
+              //         child: Image.network(
+              //             'https://cdni.iconscout.com/illustration/premium/thumb/technical-drawing-6624320-5619278.png'),
+              //       ),
+              //     ],
+              //     options: CarouselOptions(
+              //       height: 170,
+              //       aspectRatio: 16 / 9,
+              //       viewportFraction: 0.5,
+              //       initialPage: 0,
+              //       enableInfiniteScroll: true,
+              //       reverse: false,
+              //       autoPlay: true,
+              //       autoPlayInterval: Duration(seconds: 3),
+              //       autoPlayAnimationDuration: Duration(milliseconds: 800),
+              //       autoPlayCurve: Curves.fastOutSlowIn,
+              //       enlargeCenterPage: true,
+              //       enlargeFactor: 0.4,
+              //       scrollDirection: Axis.horizontal,
+              //     )
+              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
 
-                CategoryWidget(
-                  categoryimage:
-                      "https://img.icons8.com/?size=1x&id=MFk6IqgCtnGg&format=png",
-                  categoryname: "Laptop",
-                  navigate: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Laptop(),
-                        ));
-                  },
-                ),
-                CategoryWidget(
-                  categoryimage:
-                      "https://img.icons8.com/?size=1x&id=dr9VaG7p8e1a&format=png",
-                  categoryname: "Notes",
-                  navigate: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Notes(),
-                        ));
-                  },
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CategoryWidget(
+                  CategoryWidget(
                     categoryimage:
-                        "https://img.icons8.com/?size=1x&id=xdC06v7JSTKS&format=png",
-                    categoryname: "Drawing Tools",
+                        "https://img.icons8.com/?size=1x&id=MFk6IqgCtnGg&format=png",
+                    categoryname: "Laptop",
                     navigate: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DrawingTools(),
+                            builder: (context) => Laptop(),
                           ));
-                    }),
-                CategoryWidget(
-                    categoryimage:
-                        "https://img.icons8.com/?size=1x&id=lR3F6LWNiZ8C&format=png",
-                    categoryname: "Others",
-                    navigate: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OtherCategories(),
-                          ));
-                    }),
-              ],
-            ),
-            Expanded(
-              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                stream:
-                    FirebaseFirestore.instance.collection("Users").snapshots(),
-                builder: (context, dynamic snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                        child:
-                            CircularProgressIndicator()); //return means the bottom code wont run
-                  }
-                  if (snapshot.data == null || snapshot.hasError) {
-                    return const Center(child: Text("DATA NOT AVAILABLE"));
-                  }
-
-                  return ListView.builder(
-                    itemCount: snapshot.data.docs.length,
-                    itemBuilder: (context, index) {
-                      if (snapshot.data.docs[index].id == login) {
-                        maindata = snapshot.data.docs[index];
-                      }
-                      return Container(
-                        child: Text(
-                          "Items Found",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      );
                     },
-                  );
-                },
+                  ),
+                  CategoryWidget(
+                    categoryimage:
+                        "https://img.icons8.com/?size=1x&id=dr9VaG7p8e1a&format=png",
+                    categoryname: "Notes",
+                    navigate: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Notes(),
+                          ));
+                    },
+                  ),
+                ],
               ),
-            ),
-          ],
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CategoryWidget(
+                      categoryimage:
+                          "https://img.icons8.com/?size=1x&id=xdC06v7JSTKS&format=png",
+                      categoryname: "Drawing Tools",
+                      navigate: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DrawingTools(),
+                            ));
+                      }),
+                  CategoryWidget(
+                      categoryimage:
+                          "https://img.icons8.com/?size=1x&id=lR3F6LWNiZ8C&format=png",
+                      categoryname: "Others",
+                      navigate: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OtherCategories(),
+                            ));
+                      }),
+                ],
+              ),
+              Expanded(
+                child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                  stream:
+                      FirebaseFirestore.instance.collection("Users").snapshots(),
+                  builder: (context, dynamic snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                          child:
+                              CircularProgressIndicator()); //return means the bottom code wont run
+                    }
+                    if (snapshot.data == null || snapshot.hasError) {
+                      return const Center(child: Text("DATA NOT AVAILABLE"));
+                    }
+
+                    return ListView.builder(
+                      itemCount: snapshot.data.docs.length,
+                      itemBuilder: (context, index) {
+                        if (snapshot.data.docs[index].id == login) {
+                          maindata = snapshot.data.docs[index];
+                        }
+                        return Container(
+                          child: Text(
+                            "Items Found",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomAppBar(

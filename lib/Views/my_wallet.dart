@@ -184,7 +184,7 @@ class _MyWalletState extends State<MyWallet> {
 
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(10.0),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -195,6 +195,13 @@ class _MyWalletState extends State<MyWallet> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children:[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.info_outline),
+                                Text("10% deducted on total amount",style: TextStyle(fontSize: 15.0,color:Colors.pink),),
+                              ],
+                            ),
                           Text("Your Wallet Amount",style: TextStyle(fontSize: 15.0),),
                           SizedBox(height: 20.0,),
                           Text("Rs. $totalWalletAmount",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30.0),),
@@ -343,7 +350,7 @@ class _MyWalletState extends State<MyWallet> {
                                         children: [
                                           Text("Post#${data['id'].toString()}",
                                             style: TextStyle(
-                                                fontSize: 20,
+                                                fontSize: 17,
                                                 fontWeight: FontWeight.bold),),
                                           SizedBox(width: 5.0),
                                           Text(formattedDateTime, style: TextStyle(color: Colors.blue,),),

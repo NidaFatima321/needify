@@ -488,10 +488,10 @@ class _AddPostState extends State<AddPost> {
                       int postLength = posts.docs.length;
                       String userPost = "${login}_${postLength+1}";
                       widget._referencePostsReference.doc(userPost).set(dataToSend);
-                      List<dynamic> Categories=maindata!['Categories'];
+                      List<dynamic> Categories = maindata!['Categories'];
                       int val=0;
                       for(int i=0;i<Categories.length;i++){
-                        if(Categories[i]==category){
+                        if(Categories[i] == category){
                           val=1;
                         }
                       }
