@@ -12,7 +12,7 @@ class Earnings extends StatefulWidget {
 class _EarningsState extends State<Earnings> {
   Map<String, double> dataMap = {
     "Today's Earnings": todayCount.toDouble(),
-    "Past Earnings": totalCount.toDouble()
+    "Past Earnings": totalCount.toDouble()-todayCount.toDouble()
   };
   @override
   Widget build(BuildContext context) {

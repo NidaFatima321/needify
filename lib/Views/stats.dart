@@ -13,6 +13,7 @@ class Statistics extends StatefulWidget {
 }
 
 class _StatisticsState extends State<Statistics> {
+
   DateTime date = DateTime.now();
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,9 @@ class _StatisticsState extends State<Statistics> {
         body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
           stream: FirebaseFirestore.instance.collection('Users').snapshots(),
           builder: (context, snapshot) {
+            todayCount=0;
+            totalCount=0;
+            profitearned=0;
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                   child:
@@ -35,12 +39,10 @@ class _StatisticsState extends State<Statistics> {
             return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
-                todayCount=0;
-                totalCount=0;
-                profitearned=0;
                 List<Widget> mylist = [];
                 if (snapshot.data!.docs[index]['Solds']['Items'].length > 0) {
                   totalCount = totalCount + snapshot.data!.docs[index]['Solds']['Items'].length;
+                  print(totalCount);
                   for (int i = 0;
                       i < snapshot.data!.docs[index]['Solds']['Items'].length;
                       i++) {
@@ -48,6 +50,7 @@ class _StatisticsState extends State<Statistics> {
                             .toDate()
                             .day ==
                         DateTime.now().day) {
+                      // todayCount=todayCount+1;
                       DocumentSnapshot documentSnapshot =
                           snapshot.data!.docs[index];
                       mylist.add(SoldWidget2(
