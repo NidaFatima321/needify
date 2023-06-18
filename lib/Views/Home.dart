@@ -24,23 +24,29 @@ class _HomeScreenState extends State<HomeScreen> {
   final currentUser = FirebaseAuth.instance;
   var currentPage = DrawerSelections.Dashboard;
 
+
   @override
   Widget build(BuildContext context) {
     var container;
+    String appBarText = "NEEDIFY";
 
     if(currentPage == DrawerSelections.Dashboard){
       container = Dashboard();
     }else if (currentPage == DrawerSelections.MyPosts){
       container = MyPosts();
-    }
-    else if (currentPage == DrawerSelections.MyPurchases){
+      appBarText = "My Posts";
+    } else if (currentPage == DrawerSelections.MyPurchases){
       container = LoadData();
+      appBarText = "My Purchases";
     } else if (currentPage == DrawerSelections.SoldItems){
       container = SoldItems();
+      appBarText = "Sold Items";
     } else if (currentPage == DrawerSelections.FAQ) {
       container = FAQFINAL();
+      appBarText = "FAQ";
     }else if (currentPage == DrawerSelections.MyWallet){
       container = MyWallet();
+      appBarText = "My Wallet";
     } else if (currentPage == DrawerSelections.Logout){
       FirebaseAuth.instance.signOut().then((value) {
         print("Signed Out!");
@@ -54,9 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Color(0xFFC52348),
         foregroundColor: Colors.black,
         elevation: 0,
-        title: const Text(
-          "NEEDIFY",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        title: Text(
+          appBarText,
+          style: TextStyle(fontSize: 24),
         ),
       ),
       drawer: Drawer(
@@ -141,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
           menuItem(1, "Dashboard", Icons.dashboard_outlined,
               currentPage == DrawerSelections.Dashboard? true : false),
           menuItem(2, "My Posts", Icons.ad_units_outlined,
-              currentPage == DrawerSelections.Dashboard? true : false),
+              currentPage == DrawerSelections.MyPosts? true : false),
           menuItem(3, "My Purchases", Icons.shopping_bag_outlined,
               currentPage == DrawerSelections.MyPurchases? true : false),
           menuItem(4, "Sold Items", Icons.sell_outlined,
