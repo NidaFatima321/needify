@@ -5,6 +5,7 @@ import '../reusable_widgets/reusable_widgets.dart';
 import '../utils/colors_utils.dart';
 import 'Home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -22,6 +23,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _yearTextController = TextEditingController();
 
   CollectionReference users = FirebaseFirestore.instance.collection("Users");
+  AsciiEncoder asciEncoder=new AsciiEncoder();
+  validEmail(){
+    final bool emailValid =
+    RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(_emailTextController.text);
+    return emailValid;
+  }
+  bool isNotStringOnly(String str) {
+   for(var i=0;i<str.length;i++){
+    if(str[i]=='1'||str[i]=='2'||str[i]=='3'||str[i]=='4'||str[i]=='5'||str[i]=='6'||str[i]=='7'||str[i]=='8'||str[i]=='9'||str[i]=='#'||str[i]=='@'||str[i]=='!'||str[i]=='/'||str[i]=='\/'||str[i]=='*'||str[i]=='\$'){
+      return true;
+      break;
+    }
+   }
+   return false;
+  }
+  validPassword(){
+    final bool passValid=_passwordTextController.text.length>8 && isNotStringOnly(_passwordTextController.text)?true:false;
+    return passValid;
+  }
+  validPhoneNumber(){
+   final bool validPhoneNumber= _phnoTextController.text.length==11 && int.parse(_phnoTextController.text)!=null?true:false;
+   return validPhoneNumber;
+  }
 
   String imageUrl = '';
 
@@ -177,6 +202,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 Center(
                   child: signinSignupButton(context, false, () async {
+                    if(validPhoneNumber()&&validEmail()&&validPassword()){
+
+
                     await FirebaseAuth.instance.createUserWithEmailAndPassword(
                         email: _emailTextController.text,
                         password: _passwordTextController.text).then((value) {
@@ -205,7 +233,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     }).onError((error, stackTrace){
                       print("Error ${error.toString()}");
                     });
-                  }),
+                  }}),
                 )
               ],
             ),

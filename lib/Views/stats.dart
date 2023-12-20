@@ -13,36 +13,37 @@ class Statistics extends StatefulWidget {
 }
 
 class _StatisticsState extends State<Statistics> {
-
   DateTime date = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("TODAY'S TRANSACTIONS"),
-        ),
-        body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: FirebaseFirestore.instance.collection('Users').snapshots(),
-          builder: (context, snapshot) {
-            current="Current";
-            todayCount=0;
-            totalCount=0;
-            profitearned=0;
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                  child:
-                      CircularProgressIndicator()); //return means the bottom code wont run
-            }
-            if (snapshot.data == null || snapshot.hasError) {
-              return const Center(child: Text("DATA NOT AVAILABLE"));
-            }
+      appBar: AppBar(
+        title: Text("TODAY'S TRANSACTIONS"),
+      ),
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: FirebaseFirestore.instance.collection('Users').snapshots(),
+        builder: (context, snapshot) {
+          current = "Current";
+          todayCount = 0;
+          totalCount = 0;
+          profitearned = 0;
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+                child:
+                    CircularProgressIndicator()); //return means the bottom code wont run
+          }
+          if (snapshot.data == null || snapshot.hasError) {
+            return const Center(child: Text("DATA NOT AVAILABLE"));
+          }
 
-            return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index) {
-                List<Widget> mylist = [];
+          return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+              List<Widget> mylist = [];
+              if (snapshot.data!.docs[index] == "Solds") {
                 if (snapshot.data!.docs[index]['Solds']['Items'].length > 0) {
-                  totalCount = totalCount + snapshot.data!.docs[index]['Solds']['Items'].length;
+                  totalCount = totalCount +
+                      snapshot.data!.docs[index]['Solds']['Items'].length;
                   print(totalCount);
                   for (int i = 0;
                       i < snapshot.data!.docs[index]['Solds']['Items'].length;
@@ -62,17 +63,19 @@ class _StatisticsState extends State<Statistics> {
                     }
                   }
                 }
-                return Container(
-                  child: Column(children: mylist),
-                );
-              },
-            );
-          },
-
-        ),
+              }
+              return Container(
+                child: Column(children: mylist),
+              );
+            },
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Earnings(),));
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => Earnings(),
+          ));
         },
         label: Text('VIEW EARNINGS'),
       ),

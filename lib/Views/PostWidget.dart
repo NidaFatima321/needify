@@ -44,7 +44,7 @@ class _PostWidgetState extends State<PostWidget> {
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(30,),bottomRight: Radius.circular(30)),
           ),
           // color: Colors.teal,
           height: 200,

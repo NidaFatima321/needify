@@ -28,7 +28,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
         },
 
         child: Container(
-          /*decoration: BoxDecoration(
+          decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
               BoxShadow(
@@ -38,9 +38,9 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                 spreadRadius: 2, // Specifies the spread radius of the shadow
               ),
             ],
-          ),*/
+          ),
           //color: Color(0xFF1592EC),
-          color: Color(0xFF25253D),
+          // color: Color(0xFF25253D),
           padding: EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,10 +48,10 @@ class _CategoryWidgetState extends State<CategoryWidget> {
               Text(
                 widget.categoryname,
                 style: TextStyle(
-                    color:Colors.white, fontWeight:FontWeight.w500,fontSize: 20),
+                    color:Colors.black, fontWeight:FontWeight.w500,fontSize: 20),
               ),
               SizedBox(height: 10,),
-              Image.network(widget.categoryimage,width: 150,height: 100,)
+              Image.network(widget.categoryimage,width: 130,height: 90,)
             ],
           ),
         ),

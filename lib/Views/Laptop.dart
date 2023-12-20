@@ -14,6 +14,7 @@ class _LaptopsState extends State<Laptop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
        appBar: AppBar(
          backgroundColor: Color(0xFFC52348),
          foregroundColor: Colors.black,
