@@ -59,7 +59,7 @@ class _PostWidgetState extends State<PostWidget> {
                     Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image.network(
+                    snapshot.data!.docs[index]["Image"]==""?Image.asset('assets/images/imagenf.png',width: 150,height: 150,):Image.network(
                       snapshot.data!.docs[index]["Image"],
                       width: 150,
                       height: 150,

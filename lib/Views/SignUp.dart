@@ -225,7 +225,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       "User image": imageUrl,
                       "Sold":[],
                       "Categories":[],
-                      "Purchased":[]
+                      "Purchased":[],
                     }).then((value) {
                       print("Added user!");
                       Navigator.push(context,
